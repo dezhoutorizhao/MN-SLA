@@ -15,6 +15,11 @@ venv/
 /.hf_cache/
 /.tools/
 
+# Paper manuscript, compiled PDF, and manuscript figures are kept local unless
+# explicitly released separately.
+/paper/
+/figures/
+
 # Local-only annotation packets and secrets must never be published.
 *.SENSITIVE_LOCAL_ONLY.*
 *private*

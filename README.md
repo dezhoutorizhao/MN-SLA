@@ -1,8 +1,9 @@
 # MN-SLA: Matched-Neutral Safety-Label Audit
 
-This repository contains the code, paper source, figures, and public aggregate
-artifacts for MN-SLA, a matched-neutral audit protocol for measuring
-social-pressure sensitivity in safety judges.
+This repository contains the code and public aggregate artifacts for MN-SLA, a
+matched-neutral audit protocol for measuring social-pressure sensitivity in
+safety judges. The manuscript source, compiled paper PDF, and manuscript
+figures are intentionally not included in this repository.
 
 MN-SLA fixes the underlying safety case and gold label, compares
 pressure-wrapped judge inputs against matched neutral controls with the same
@@ -16,21 +17,23 @@ defense.
 
 - `src/sycophancy_guard/`: audit construction, metrics, diagnostics, claim
   gates, projection ablations, and baseline adapters.
-- `scripts/`: commands for generating figures, aggregate audits, diagnostic
-  analyses, and local annotation tooling.
+- `scripts/`: commands for generating aggregate audits, diagnostic analyses,
+  local annotation tooling, and reproducibility assets.
 - `tests/`: regression tests for the audit pipeline and fail-closed behavior.
-- `paper/`: LaTeX source, bibliography, compiled PDF, and paper figures.
-- `artifacts/`: public aggregate outputs used by the paper. These are summaries,
-  tables, and JSON reports, not raw rendered benchmark prompts.
+- `artifacts/`: public aggregate outputs for inspecting the MN-SLA claim
+  boundary. These are summaries, tables, and JSON reports, not raw rendered
+  benchmark prompts.
 - `CLAIMS_FROM_RESULTS.md` and `NOVELTY_CHECK_REPORT.md`: short public summaries
   of the supported claim boundary and novelty positioning.
 
 ## Public Artifact Policy
 
-The repository intentionally does not publish local raw rendered prompts,
-model weights, Hugging Face caches, private annotation answer keys, or internal
-session recovery logs. Large and sensitive local directories such as `data/`,
-`outputs/`, `models/`, `.hf_cache/`, and `third_party/` are ignored.
+The repository intentionally does not publish the manuscript source, compiled
+paper PDF, manuscript figures, local raw rendered prompts, model weights,
+Hugging Face caches, private annotation answer keys, or internal session
+recovery logs. Large and sensitive local directories such as `paper/`,
+`figures/`, `data/`, `outputs/`, `models/`, `.hf_cache/`, and `third_party/`
+are ignored.
 
 The public `artifacts/` directory contains aggregate diagnostics sufficient to
 inspect the paper claims without exposing local-only or sensitive records.
@@ -51,27 +54,9 @@ $env:PYTHONPATH='src'
 python -m unittest discover -s tests
 ```
 
-The latest recorded verification for the paper build ran 162 tests successfully.
-
-## Paper
-
-The compiled paper is available at:
-
-```text
-paper/main.pdf
-```
-
-To rebuild with MiKTeX:
-
-```powershell
-cd paper
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-bibtex main
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-pdflatex -interaction=nonstopmode -halt-on-error main.tex
-```
-
-See `paper/compile_status.md` for the latest local compile and test status.
+The latest recorded verification for the full local project ran 162 tests
+successfully. The manuscript build artifacts are kept outside the public
+repository.
 
 ## Claim Boundary
 

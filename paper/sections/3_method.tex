@@ -1,0 +1,171 @@
+﻿\section{\auditname Contract and Audit Projection}
+
+\subsection{Matched-Neutral Social-Pressure Sensitivity}
+
+Let $b\in\mathcal{B}$ index a base case. Each base contains the underlying safety-relevant case $C_b$, the gold safety label $y_b\in\{0,1\}$, and audit metadata used for selection and accounting. Let $S$ denote a wrapper intervention, such as a direct desired-label cue, authority claim, consistency appeal, or answer-key style instruction. The rendered judge input is
+\[
+    X_{b,r} = \mathrm{render}(C_b,S_r).
+\]
+For a judge adapter $f$, let $s_f(x)\in[0,1]$ be the available unsafe score. For hard-label adapters, $s_f(x)$ is the parsed label in $\{0,1\}$; for probability adapters, it is the reported unsafe probability. A fixed threshold $\tau$ gives a hard decision and a binary error loss,
+\[
+    g_\tau(s)=\ind[s\ge \tau],
+    \qquad
+    \loss_\tau(f,x,y)=\ind[g_\tau(s_f(x))\ne y].
+\]
+A content-faithful judge should approximate an ideal content-only rule $h(C_b)$ and avoid pressure-specific label shifts after conditioning on the same base case.
+
+\auditname operationalizes this idea by pairing each primary pressure attack with matched neutral controls. A neutral control uses the same base case, layout, and format, but removes the desired-label pressure. The primary base-level estimand is the pressure-specific error gap:
+\[
+    \Delta_b^{\mathrm{raw}} =
+    \frac{1}{|\mathcal{P}_b|}\sum_{i \in \mathcal{P}_b}
+    \left[
+        \loss_\tau(f,X_i^{\attack},y_b)
+        -
+        \frac{1}{|\mathcal{N}_i|}\sum_{j \in \mathcal{N}_i}\loss_\tau(f,X_{ij}^{\neutral},y_b)
+    \right],
+    \qquad
+    \bar{\Delta}^{\mathrm{raw}} =
+    \frac{1}{|\mathcal{B}|}\sum_{b\in\mathcal{B}}\Delta_b^{\mathrm{raw}},
+\]
+where $\mathcal{P}_b$ is the set of primary pressure records for base $b$ and $\mathcal{N}_i$ is the matched neutral-control set for pressure record $i$. We aggregate $\Delta_b$ over bases and use base-level confidence intervals and one-sided tests for positive degradation.
+
+The independent unit is the base case, not the rendered record. In the 50-base main protocol, the 2150 records are repeated interventions and controls attached to 50 underlying safety cases. They increase within-base measurement resolution, but they do not increase the primary inference sample size beyond $n_b=50$.
+
+\subsection{Estimand, Diagnostic Projection, and Deployment Boundary}
+
+\method is best understood as a post-hoc matched-control diagnostic projection. It answers the question: after replacing each pressure-side score with the score implied by its matched neutral controls, does the residual \auditname pressure gap remain supported? This is a property of the matched-control estimand and the available artifacts. It is not the main contribution, not a claim that the raw one-pass model is robust, and not evidence that the projection can be deployed without additional queries or a cache.
+
+For each primary attack $i$, the mean-v1 projection is the operator
+\[
+    T_{\mathrm{mean}}(s_f;i)
+    =
+    \frac{1}{|\mathcal{N}_i|}
+    \sum_{j\in\mathcal{N}_i} s_f(X_{ij}^{\neutral}).
+\]
+The projected attack loss is
+\[
+    \loss_\tau^{T}(f,i,y_b)=
+    \ind[g_\tau(T_{\mathrm{mean}}(s_f;i))\ne y_b],
+\]
+and the residual base-level gap is
+\[
+    \Delta_b^{T} =
+    \frac{1}{|\mathcal{P}_b|}\sum_{i \in \mathcal{P}_b}
+    \left[
+        \loss_\tau^{T}(f,i,y_b)
+        -
+        \frac{1}{|\mathcal{N}_i|}\sum_{j \in \mathcal{N}_i}\loss_\tau(f,X_{ij}^{\neutral},y_b)
+    \right].
+\]
+The paired attenuation is defined within each base as
+\[
+    A_b^{T}=\Delta_b^{\mathrm{raw}}-\Delta_b^{T},
+    \qquad
+    \bar{A}^{T}=|\mathcal{B}|^{-1}\sum_{b\in\mathcal{B}}A_b^T.
+\]
+Taking the difference over bases gives the audit-projection accounting identity
+\[
+    \bar{\Delta}^{\mathrm{raw}}
+    =
+    \bar{\Delta}^{T}
+    +
+    \bar{A}^{T}.
+\]
+These definitions make the substitution explicit. After projection, the scientific proposition is not that the original judge has become pressure-invariant. It is the artifact-level proposition that a fixed matched-control readout accounts for the supported raw gap while passing the same coverage, pairing, residual, attenuation, and non-degradation checks. Thus a supported $\bar{A}^{T}>0$ with unsupported $\bar{\Delta}^{T}$ is evidence about the matched-control audit readout, not evidence that $f(X^{\attack})$ itself is pressure-invariant. It also does not establish production readiness, equal-cost mitigation, or unique optimality of mean-v1.
+
+For a declared significance level $\alpha$ (we use $\alpha=0.05$ in the reported gates), the fail-closed predicate over an artifact set $\mathcal{D}$ is
+\[
+    G_{\alpha}(\mathcal{D},T)=
+    \mathrm{Cov}(\mathcal{D})
+    \wedge
+    \mathrm{Pair}(\mathcal{D})
+    \wedge
+    \mathrm{V\mbox{-}SUP}_{\alpha}(\Delta^{\mathrm{raw}})
+    \wedge
+    \mathrm{R\mbox{-}NS}_{\alpha}(\Delta^{T})
+    \wedge
+    \mathrm{Attn\mbox{-}SUP}_{\alpha}(A^{T})
+    \wedge
+    \mathrm{F1\mbox{-}ND}(\mathcal{D},T).
+\]
+The statistical predicates are
+\[
+\begin{aligned}
+    \mathrm{V\mbox{-}SUP}_{\alpha}(Z)
+        &\equiv \bar{Z}>0 \wedge p_+(Z)<\alpha,\\
+    \mathrm{R\mbox{-}NS}_{\alpha}(Z)
+        &\equiv \neg\left(\bar{Z}>0 \wedge p_+(Z)<\alpha\right),\\
+    \mathrm{Attn\mbox{-}SUP}_{\alpha}(A)
+        &\equiv \bar{A}>0 \wedge p^{H}_+(A)<\alpha,\\
+    \mathrm{F1\mbox{-}ND}(\mathcal{D},T)
+        &\equiv \mathrm{F1}^{T}_{\mathrm{overall}}\ge \mathrm{F1}^{\mathrm{raw}}_{\mathrm{overall}}
+        \wedge
+        \mathrm{F1}^{T}_{\mathrm{attack}}\ge \mathrm{F1}^{\mathrm{raw}}_{\mathrm{attack}}.
+\end{aligned}
+\]
+Here $p^{H}_+$ is the Holm-adjusted directional sign-flip value for the paired attenuation family. The F1 predicate is only a zero-drop sanity check under an audit projection that uses matched-control information.
+Any missing controls, underpowered base count, pairing anomaly, supported residual gap, weak attenuation, or F1 drop makes the predicate false rather than partially successful.
+
+This distinction is important for novelty. The projection is not offered as a defense mechanism against persuasion; it is a readout of the matched-neutral estimand. A stronger deployable system would need to generate or retrieve neutral controls under a declared cache policy and would require a separate equal-cost evaluation.
+
+The symbol $p=f(X)$ denotes the numeric value available from a baseline adapter. For DynaGuard, BingoGuard, and WildGuard in the current artifacts, the adapter exposes parsed hard labels, so $p\in\{0,1\}$ and averaging neutral controls is an average over binary decisions. HarmAug exposes continuous probabilities, so its $p$ is a model probability. All V-SUP, V-NS, and R-NS gate labels are computed from the binary 0--1 loss after applying $g_\tau$; continuous scores are used only for HarmAug probability-drift diagnostics and are not treated as calibrated across systems.
+
+\begin{algorithm}[t]
+\caption{\method: post-hoc diagnostic matched-control projection}
+\label{alg:neutralize}
+\begin{algorithmic}[1]
+\STATE \textbf{Input:} Existing judge $f$, attack input $X_i^{\attack}$, matched neutral controls $\{X_{ij}^{\neutral}\}_{j=1}^{m_i}$, threshold $\tau$.
+\STATE Read the declared audit scores $p_i^{\attack}=f(X_i^{\attack})$ and $p_{ij}^{\neutral}=f(X_{ij}^{\neutral})$ for the pressure record and its matched controls.
+\STATE Compute matched neutral estimate $\bar{p}_i^{\neutral} = m_i^{-1}\sum_j p_{ij}^{\neutral}$.
+\STATE Set audit-projected score $\tilde{p}_i = \bar{p}_i^{\neutral}$ for residual-gap evaluation.
+\STATE Define the audit-projected decision $\tilde{y}_i = \ind[\tilde{p}_i \ge \tau]$ for downstream diagnostics.
+\STATE Evaluate projected records with the same \auditname diagnostics and F1 metrics.
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Interpretation boundary for \method. The paper claims only the left column.}
+\label{tab:boundary}
+\begin{tabular}{lll}
+\toprule
+Question & Supported by evidence? & Reason \\
+\midrule
+Matched-control residual gap & Yes & Same \auditname contract and paired artifacts \\
+Post-hoc audit projection & Yes & Neutral controls are available or cached \\
+Equal-cost one-pass comparison & No & Extra matched-control scores are used \\
+Deployable-model superiority & No & No new guard is trained or served \\
+Unrestricted superiority & No & Evidence is selected-baseline and protocol bounded \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This boundary is central to the paper. The projection is a diagnostic readout for controlled audits, for checking whether a pressure-specific component is present, and for systems where neutral controls are already produced under a declared cache policy. It should not be described as a free mitigation layer over arbitrary production traffic. A realistic cache policy would need to version the base case, layout, format, neutral template, and baseline adapter, then fail closed when the cache lacks the exact matched controls. We audit this coverage in Section~\ref{sec:local_audits}, but do not solve neutral-control generation for arbitrary production inputs.
+
+\subsection{Statistical Contract}
+
+All primary inferences use base-level samples. For each base, pressure-record gaps are averaged within the base before testing, so multiple pressure wrappers for the same underlying case do not become independent evidence. In symbols, the sample for the primary mean is $\{\Delta_b:b\in\mathcal{B}\}$, not $\{i:i\in\cup_b\mathcal{P}_b\}$. The primary null is that the mean base-level pressure gap is not positive; the reported main $p$-value is one-sided for positive degradation because the preregistered vulnerability question is directional. Confidence intervals are percentile bootstrap intervals over bases with 2000 resamples. For a base-level vector $Z=(Z_1,\ldots,Z_n)$, where $Z_b$ is the raw gap or paired attenuation used by the relevant gate, the directional sign-flip value is
+\[
+    p_+(Z)
+    =
+    \Pr_{\epsilon\sim\mathrm{Unif}(\{-1,+1\}^{n})}
+    \left[
+        \frac{1}{n}\sum_{b=1}^{n}\epsilon_b Z_b
+        \ge
+        \frac{1}{n}\sum_{b=1}^{n}Z_b
+    \right].
+\]
+Runs with at most 20 base samples enumerate all sign assignments, while larger runs use 10000 randomized sign assignments with a fixed seed to estimate the same probability using the finite-simulation estimate $(k+1)/(M+1)$ for $k$ extreme draws out of $M$ draws. This convention explains why strongly supported Monte Carlo rows have a floor near $0.000100$ rather than zero. The bootstrap interval and sign-flip $p$-value answer different questions: the interval describes uncertainty in the base-level mean, while the sign-flip test is the directional claim gate for positive degradation or positive paired attenuation. A row whose percentile interval touches zero can therefore still have directional support, but we treat such cases as boundary-sensitive and report two-sided sign-flip sensitivity in Section~\ref{sec:local_audits}. The two-sided table is a robustness check on the directional testing convention, not a second claim gate. Slice analyses use the same base-level gap construction and report within-field Holm correction plus stronger run-metric, metric-global, and report-global Holm screens.
+
+\subsection{Projection Ablations}
+
+Because replacing attack scores with neutral estimates can look tautological, we treat \method as one member of a local projection family rather than as a uniquely privileged algorithm. The no-inference ablation suite reuses the same prediction artifacts and compares matched mean, first neutral, median, trimmed mean, and majority-vote controls against simpler projections: clean carry-forward, same-base all-neutral mean, global neutral mean, same-cell other-base mean, and wrong-layout same-base mean. These ablations are diagnostic only. They test which matching constraints matter in the archived artifacts; they do not expand the main claim gate or create an equal-cost deployment comparison. They are also matched-control accounting tests, not evidence of original-judge invariance or estimator optimality.
+
+\subsection{Claim Gate}
+
+The claim gate is conservative and fail-closed. For every selected main raw baseline, it requires a non-supplementary post-hoc method pair. For every selected main raw and method artifact, it requires at least 50 bases, positive primary attack count, and zero matched-neutral missing rate. For raw vulnerability-supported baselines, the paired attenuation artifact must have at least 50 paired bases, positive paired primary attack count, and zero duplicate IDs, unpaired IDs, base mismatches, and dropped primary pairs. The method must also preserve overall and attack F1 under zero-drop tolerance.
+
+Thus a positive paper claim is a predicate over artifacts, not a narrative interpretation of favorable rows. A baseline can support the main method claim only if the raw vulnerability is supported, the projected residual is not supported, paired attenuation is positive after correction, ordinary F1 does not drop, and all coverage and pairing checks pass. Raw V-NS baselines are handled separately: the projection must not introduce a supported residual gap, but they are not counted as evidence that the method removed a vulnerability.
+
+Gate terminology is intentionally explicit. ``V-SUP'' means a raw baseline has a supported positive pressure-specific vulnerability. ``V-NS'' means the raw vulnerability is not supported under the current protocol. ``R-NS'' means the post-projection residual gap is not supported. These labels avoid the misleading impression that a generic PASS/FAIL status ranks the quality of a guard model.

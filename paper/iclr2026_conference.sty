@@ -1,0 +1,26 @@
+﻿% Minimal local ICLR-style shim used only because the execution environment
+% does not ship the official venue style file. Replace with the official
+% style before submission.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{iclr2026_conference}[2026/05/01 local compile shim]
+
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{natbib}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Under review}
+\rhead{Counterfactual Social-Pressure Robustness}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\setlength{\headheight}{14pt}
+
+\renewcommand{\maketitle}{%
+  \begin{center}
+    {\LARGE\bfseries \@title \par}
+    \vskip 0.5em
+    {\@author \par}
+  \end{center}
+  \vskip 1em
+}

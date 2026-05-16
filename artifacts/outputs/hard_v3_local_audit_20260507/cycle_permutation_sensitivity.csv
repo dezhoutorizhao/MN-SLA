@@ -1,0 +1,3 @@
+run,n_permutations,seed,primary_gap_min,primary_gap_median,primary_gap_max,primary_gap_mean,share_exact_zero,share_residual_supported_one_sided
+dynaguard_pku200_raw,40,20260507,0.0,0.0,0.0,0.0,1.0,0.0
+wildguard_pku200_raw,40,20261516,0.0,0.0,0.0,0.0,1.0,0.0

@@ -1,0 +1,3882 @@
+{
+  "DynaGuard-50": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 2150,
+    "n_bases": 50,
+    "role_counts": {
+      "attack": 1600,
+      "clean": 50,
+      "matched_neutral_control": 500
+    },
+    "primary_attack_records": 1600,
+    "clean_reference_records": 50,
+    "attack_metrics": {
+      "n_primary_attacks": 1600,
+      "raw_attack_errors": 510.0,
+      "raw_attack_error_rate": 0.31875,
+      "escalated_attacks": 279.0,
+      "attack_escalation_rate": 0.174375,
+      "attack_error_capture_rate": 0.5450980392156862,
+      "retained_attacks": 1321.0,
+      "retained_attack_error_rate": 0.17562452687358063,
+      "residual_error_mass": 0.145,
+      "false_escalation_given_raw_correct": 0.0009174311926605505,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.02,
+      "prediction_disagreement_rate": 0.174375,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.31875,
+          "ci95_low": 0.21185937500000002,
+          "ci95_high": 0.42876562499999993,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.174375,
+          "ci95_low": 0.100625,
+          "ci95_high": 0.24875,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_error_capture_rate": {
+          "n": 24.0,
+          "mean": 0.6911080586080587,
+          "ci95_low": 0.5074384157509158,
+          "ci95_high": 0.8502934981684982,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.17630769230769233,
+          "ci95_low": 0.084,
+          "ci95_high": 0.28137435897435875,
+          "p_value_mean_gt_0": 0.0012998700129987
+        },
+        "residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.145,
+          "ci95_low": 0.06,
+          "ci95_high": 0.24,
+          "p_value_mean_gt_0": 0.0010998900109989002
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 43.0,
+          "mean": 0.003875968992248062,
+          "ci95_low": 0.0,
+          "ci95_high": 0.011627906976744186,
+          "p_value_mean_gt_0": 0.5064493550644935
+        },
+        "missing_control_rate": {
+          "n": 50.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 50,
+      "clean_reference_escalation_rate": 0.1,
+      "clean_reference_raw_error_rate": 0.14,
+      "retained_clean_reference_error_rate": 0.13333333333333333,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.1,
+          "ci95_low": 0.02,
+          "ci95_high": 0.2,
+          "p_value_mean_gt_0": 0.0287971202879712
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 50.0,
+          "mean": 0.14,
+          "ci95_low": 0.06,
+          "ci95_high": 0.24,
+          "p_value_mean_gt_0": 0.007999200079992
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 45.0,
+          "mean": 0.13333333333333333,
+          "ci95_low": 0.044444444444444446,
+          "ci95_high": 0.24444444444444444,
+          "p_value_mean_gt_0": 0.014998500149985002
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 1600,
+      "auto_decision_rate": 0.98,
+      "abstention_rate": 0.02,
+      "override_rate_on_auto": 0.15752551020408162,
+      "raw_error_rate_on_auto": 0.305484693877551,
+      "wrapped_error_rate_on_auto": 0.14795918367346939,
+      "automatic_residual_error_mass": 0.145,
+      "abstained_raw_error_capture": 0.060784313725490195,
+      "correction_rate_given_raw_error": 0.4843137254901961,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": 1.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.02,
+      "label_metrics": {
+        "safe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 0.96,
+          "raw_error_rate_on_auto": 0.6236979166666666,
+          "wrapped_error_rate_on_auto": 0.3020833333333333,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.0,
+          "wrapped_error_rate_on_auto": 0.0,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.98,
+          "ci95_low": 0.955,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.02,
+          "ci95_low": 0.0,
+          "ci95_high": 0.045,
+          "p_value_mean_gt_0": 0.12688731126887312
+        },
+        "raw_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.3175,
+          "ci95_low": 0.21145833333333333,
+          "ci95_high": 0.4316874999999999,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.15833333333333333,
+          "ci95_low": 0.06666666666666667,
+          "ci95_high": 0.2583333333333333,
+          "p_value_mean_gt_0": 0.000999900009999
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.145,
+          "ci95_low": 0.055,
+          "ci95_high": 0.235,
+          "p_value_mean_gt_0": 0.0011998800119988001
+        },
+        "correction_rate_given_raw_error": {
+          "n": 24.0,
+          "mean": 0.6471520146520147,
+          "ci95_low": 0.45237522893772897,
+          "ci95_high": 0.82,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "induced_error_given_raw_correct": {
+          "n": 43.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 50,
+      "auto_decision_rate": 0.92,
+      "abstention_rate": 0.08,
+      "override_rate_on_auto": 0.021739130434782608,
+      "raw_error_rate_on_auto": 0.15217391304347827,
+      "wrapped_error_rate_on_auto": 0.13043478260869565,
+      "automatic_residual_error_mass": 0.12,
+      "abstained_raw_error_capture": 0.0,
+      "correction_rate_given_raw_error": 0.14285714285714285,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": 1.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.08,
+      "label_metrics": {
+        "safe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 0.84,
+          "raw_error_rate_on_auto": 0.3333333333333333,
+          "wrapped_error_rate_on_auto": 0.2857142857142857,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.0,
+          "wrapped_error_rate_on_auto": 0.0,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.92,
+          "ci95_low": 0.84,
+          "ci95_high": 0.98,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.08,
+          "ci95_low": 0.02,
+          "ci95_high": 0.16,
+          "p_value_mean_gt_0": 0.0643935606439356
+        },
+        "raw_error_rate_on_auto": {
+          "n": 46.0,
+          "mean": 0.15217391304347827,
+          "ci95_low": 0.06521739130434782,
+          "ci95_high": 0.2608695652173913,
+          "p_value_mean_gt_0": 0.008899110088991101
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 46.0,
+          "mean": 0.13043478260869565,
+          "ci95_low": 0.043478260869565216,
+          "ci95_high": 0.2391304347826087,
+          "p_value_mean_gt_0": 0.0160983901609839
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.12,
+          "ci95_low": 0.04,
+          "ci95_high": 0.22,
+          "p_value_mean_gt_0": 0.014998500149985002
+        },
+        "correction_rate_given_raw_error": {
+          "n": 7.0,
+          "mean": 0.14285714285714285,
+          "ci95_low": 0.0,
+          "ci95_high": 0.42857142857142855,
+          "p_value_mean_gt_0": 0.5
+        },
+        "induced_error_given_raw_correct": {
+          "n": 43.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 510.0,
+        "raw_attack_error_rate": 0.31875,
+        "escalated_attacks": 279.0,
+        "attack_escalation_rate": 0.174375,
+        "attack_error_capture_rate": 0.5450980392156862,
+        "retained_attacks": 1321.0,
+        "retained_attack_error_rate": 0.17562452687358063,
+        "residual_error_mass": 0.145,
+        "false_escalation_given_raw_correct": 0.0009174311926605505,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.02,
+        "prediction_disagreement_rate": 0.174375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.31875,
+            "ci95_low": 0.21185937500000002,
+            "ci95_high": 0.42876562499999993,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.174375,
+            "ci95_low": 0.100625,
+            "ci95_high": 0.24875,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 24.0,
+            "mean": 0.6911080586080587,
+            "ci95_low": 0.5074384157509158,
+            "ci95_high": 0.8502934981684982,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.17630769230769233,
+            "ci95_low": 0.084,
+            "ci95_high": 0.28137435897435875,
+            "p_value_mean_gt_0": 0.0012998700129987
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.145,
+            "ci95_low": 0.06,
+            "ci95_high": 0.24,
+            "p_value_mean_gt_0": 0.0010998900109989002
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 43.0,
+            "mean": 0.003875968992248062,
+            "ci95_low": 0.0,
+            "ci95_high": 0.011627906976744186,
+            "p_value_mean_gt_0": 0.5064493550644935
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 510.0,
+        "raw_attack_error_rate": 0.31875,
+        "escalated_attacks": 262.0,
+        "attack_escalation_rate": 0.16375,
+        "attack_error_capture_rate": 0.5137254901960784,
+        "retained_attacks": 1338.0,
+        "retained_attack_error_rate": 0.18535127055306427,
+        "residual_error_mass": 0.155,
+        "false_escalation_given_raw_correct": 0.0,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.16375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.31875,
+            "ci95_low": 0.21375,
+            "ci95_high": 0.43,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.16375,
+            "ci95_low": 0.098109375,
+            "ci95_high": 0.240625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 24.0,
+            "mean": 0.66878663003663,
+            "ci95_low": 0.49467799908424914,
+            "ci95_high": 0.8364062499999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.1780952380952381,
+            "ci95_low": 0.076,
+            "ci95_high": 0.2834285714285714,
+            "p_value_mean_gt_0": 0.0016998300169983002
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.155,
+            "ci95_low": 0.065,
+            "ci95_high": 0.26,
+            "p_value_mean_gt_0": 0.0006999300069993001
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 43.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 510.0,
+        "raw_attack_error_rate": 0.31875,
+        "escalated_attacks": 264.0,
+        "attack_escalation_rate": 0.165,
+        "attack_error_capture_rate": 0.515686274509804,
+        "retained_attacks": 1336.0,
+        "retained_attack_error_rate": 0.18488023952095808,
+        "residual_error_mass": 0.154375,
+        "false_escalation_given_raw_correct": 0.0009174311926605505,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.165,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.31875,
+            "ci95_low": 0.2075,
+            "ci95_high": 0.4281406249999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.165,
+            "ci95_low": 0.098734375,
+            "ci95_high": 0.235625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 24.0,
+            "mean": 0.6694734432234433,
+            "ci95_low": 0.4895833333333333,
+            "ci95_high": 0.8332261904761905,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.179,
+            "ci95_low": 0.08296666666666666,
+            "ci95_high": 0.28966666666666663,
+            "p_value_mean_gt_0": 0.0013998600139986002
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.154375,
+            "ci95_low": 0.064984375,
+            "ci95_high": 0.254375,
+            "p_value_mean_gt_0": 0.0011998800119988001
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 43.0,
+            "mean": 0.003875968992248062,
+            "ci95_low": 0.0,
+            "ci95_high": 0.011627906976744186,
+            "p_value_mean_gt_0": 0.4948505149485051
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "WildGuard-50": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 2150,
+    "n_bases": 50,
+    "role_counts": {
+      "attack": 1600,
+      "clean": 50,
+      "matched_neutral_control": 500
+    },
+    "primary_attack_records": 1600,
+    "clean_reference_records": 50,
+    "attack_metrics": {
+      "n_primary_attacks": 1600,
+      "raw_attack_errors": 301.0,
+      "raw_attack_error_rate": 0.188125,
+      "escalated_attacks": 79.0,
+      "attack_escalation_rate": 0.049375,
+      "attack_error_capture_rate": 0.24584717607973422,
+      "retained_attacks": 1521.0,
+      "retained_attack_error_rate": 0.1492439184746877,
+      "residual_error_mass": 0.141875,
+      "false_escalation_given_raw_correct": 0.003849114703618168,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.005,
+      "prediction_disagreement_rate": 0.049375,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.188125,
+          "ci95_low": 0.091875,
+          "ci95_high": 0.2943906249999999,
+          "p_value_mean_gt_0": 0.00019998000199980003
+        },
+        "attack_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.049375,
+          "ci95_low": 0.013125,
+          "ci95_high": 0.09814062499999991,
+          "p_value_mean_gt_0": 0.0037996200379962005
+        },
+        "attack_error_capture_rate": {
+          "n": 14.0,
+          "mean": 0.4788359788359789,
+          "ci95_low": 0.21428571428571427,
+          "ci95_high": 0.7142857142857143,
+          "p_value_mean_gt_0": 0.0078125
+        },
+        "retained_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.1523076923076923,
+          "ci95_low": 0.06,
+          "ci95_high": 0.26,
+          "p_value_mean_gt_0": 0.004199580041995801
+        },
+        "residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.141875,
+          "ci95_low": 0.058703125,
+          "ci95_high": 0.241875,
+          "p_value_mean_gt_0": 0.0034996500349965005
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 44.0,
+          "mean": 0.022727272727272728,
+          "ci95_low": 0.0,
+          "ci95_high": 0.06818181818181818,
+          "p_value_mean_gt_0": 0.5016498350164984
+        },
+        "missing_control_rate": {
+          "n": 50.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 50,
+      "clean_reference_escalation_rate": 0.04,
+      "clean_reference_raw_error_rate": 0.16,
+      "retained_clean_reference_error_rate": 0.14583333333333334,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.04,
+          "ci95_low": 0.0,
+          "ci95_high": 0.1,
+          "p_value_mean_gt_0": 0.25247475252474755
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 50.0,
+          "mean": 0.16,
+          "ci95_low": 0.06,
+          "ci95_high": 0.26,
+          "p_value_mean_gt_0": 0.0034996500349965005
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 48.0,
+          "mean": 0.14583333333333334,
+          "ci95_low": 0.0625,
+          "ci95_high": 0.25,
+          "p_value_mean_gt_0": 0.006899310068993101
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 1600,
+      "auto_decision_rate": 0.995,
+      "abstention_rate": 0.005,
+      "override_rate_on_auto": 0.04459798994974874,
+      "raw_error_rate_on_auto": 0.18404522613065327,
+      "wrapped_error_rate_on_auto": 0.1457286432160804,
+      "automatic_residual_error_mass": 0.145,
+      "abstained_raw_error_capture": 0.026578073089700997,
+      "correction_rate_given_raw_error": 0.21926910299003322,
+      "induced_error_given_raw_correct": 0.003849114703618168,
+      "override_precision": 0.9295774647887324,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.005,
+      "label_metrics": {
+        "safe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 0.99,
+          "raw_error_rate_on_auto": 0.29545454545454547,
+          "wrapped_error_rate_on_auto": 0.21212121212121213,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.07375,
+          "wrapped_error_rate_on_auto": 0.08,
+          "induced_error_given_raw_correct": 0.006747638326585695
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.995,
+          "ci95_low": 0.985,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.005,
+          "ci95_low": 0.0,
+          "ci95_high": 0.015,
+          "p_value_mean_gt_0": 0.49425057494250574
+        },
+        "raw_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.18708333333333332,
+          "ci95_low": 0.08749479166666665,
+          "ci95_high": 0.2848177083333332,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.14666666666666667,
+          "ci95_low": 0.06,
+          "ci95_high": 0.24666666666666665,
+          "p_value_mean_gt_0": 0.0035996400359964
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.145,
+          "ci95_low": 0.05,
+          "ci95_high": 0.245,
+          "p_value_mean_gt_0": 0.0035996400359964
+        },
+        "correction_rate_given_raw_error": {
+          "n": 14.0,
+          "mean": 0.4576719576719577,
+          "ci95_low": 0.21428571428571427,
+          "ci95_high": 0.7142857142857143,
+          "p_value_mean_gt_0": 0.0078125
+        },
+        "induced_error_given_raw_correct": {
+          "n": 44.0,
+          "mean": 0.022727272727272728,
+          "ci95_low": 0.0,
+          "ci95_high": 0.06818181818181818,
+          "p_value_mean_gt_0": 0.4968503149685031
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 50,
+      "auto_decision_rate": 0.98,
+      "abstention_rate": 0.02,
+      "override_rate_on_auto": 0.02040816326530612,
+      "raw_error_rate_on_auto": 0.16326530612244897,
+      "wrapped_error_rate_on_auto": 0.14285714285714285,
+      "automatic_residual_error_mass": 0.14,
+      "abstained_raw_error_capture": 0.0,
+      "correction_rate_given_raw_error": 0.125,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": 1.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.02,
+      "label_metrics": {
+        "safe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 0.96,
+          "raw_error_rate_on_auto": 0.25,
+          "wrapped_error_rate_on_auto": 0.20833333333333334,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.08,
+          "wrapped_error_rate_on_auto": 0.08,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.98,
+          "ci95_low": 0.94,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.02,
+          "ci95_low": 0.0,
+          "ci95_high": 0.06,
+          "p_value_mean_gt_0": 0.5104489551044895
+        },
+        "raw_error_rate_on_auto": {
+          "n": 49.0,
+          "mean": 0.16326530612244897,
+          "ci95_low": 0.061224489795918366,
+          "ci95_high": 0.2653061224489796,
+          "p_value_mean_gt_0": 0.0051994800519948
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 49.0,
+          "mean": 0.14285714285714285,
+          "ci95_low": 0.04081632653061224,
+          "ci95_high": 0.24489795918367346,
+          "p_value_mean_gt_0": 0.008099190080991902
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.14,
+          "ci95_low": 0.06,
+          "ci95_high": 0.24,
+          "p_value_mean_gt_0": 0.006999300069993001
+        },
+        "correction_rate_given_raw_error": {
+          "n": 8.0,
+          "mean": 0.125,
+          "ci95_low": 0.0,
+          "ci95_high": 0.375,
+          "p_value_mean_gt_0": 0.5
+        },
+        "induced_error_given_raw_correct": {
+          "n": 42.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 301.0,
+        "raw_attack_error_rate": 0.188125,
+        "escalated_attacks": 79.0,
+        "attack_escalation_rate": 0.049375,
+        "attack_error_capture_rate": 0.24584717607973422,
+        "retained_attacks": 1521.0,
+        "retained_attack_error_rate": 0.1492439184746877,
+        "residual_error_mass": 0.141875,
+        "false_escalation_given_raw_correct": 0.003849114703618168,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.005,
+        "prediction_disagreement_rate": 0.049375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.188125,
+            "ci95_low": 0.091875,
+            "ci95_high": 0.2943906249999999,
+            "p_value_mean_gt_0": 0.00019998000199980003
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.049375,
+            "ci95_low": 0.013125,
+            "ci95_high": 0.09814062499999991,
+            "p_value_mean_gt_0": 0.0037996200379962005
+          },
+          "attack_error_capture_rate": {
+            "n": 14.0,
+            "mean": 0.4788359788359789,
+            "ci95_low": 0.21428571428571427,
+            "ci95_high": 0.7142857142857143,
+            "p_value_mean_gt_0": 0.0078125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.1523076923076923,
+            "ci95_low": 0.06,
+            "ci95_high": 0.26,
+            "p_value_mean_gt_0": 0.004199580041995801
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.141875,
+            "ci95_low": 0.058703125,
+            "ci95_high": 0.241875,
+            "p_value_mean_gt_0": 0.0034996500349965005
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 44.0,
+            "mean": 0.022727272727272728,
+            "ci95_low": 0.0,
+            "ci95_high": 0.06818181818181818,
+            "p_value_mean_gt_0": 0.5016498350164984
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 301.0,
+        "raw_attack_error_rate": 0.188125,
+        "escalated_attacks": 71.0,
+        "attack_escalation_rate": 0.044375,
+        "attack_error_capture_rate": 0.21926910299003322,
+        "retained_attacks": 1529.0,
+        "retained_attack_error_rate": 0.15369522563767168,
+        "residual_error_mass": 0.146875,
+        "false_escalation_given_raw_correct": 0.003849114703618168,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.044375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.188125,
+            "ci95_low": 0.093109375,
+            "ci95_high": 0.293125,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.044375,
+            "ci95_low": 0.011875,
+            "ci95_high": 0.08875,
+            "p_value_mean_gt_0": 0.004999500049995001
+          },
+          "attack_error_capture_rate": {
+            "n": 14.0,
+            "mean": 0.4576719576719577,
+            "ci95_low": 0.21428571428571427,
+            "ci95_high": 0.7142857142857143,
+            "p_value_mean_gt_0": 0.0078125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.15523809523809523,
+            "ci95_low": 0.06,
+            "ci95_high": 0.26,
+            "p_value_mean_gt_0": 0.0031996800319968005
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.146875,
+            "ci95_low": 0.06,
+            "ci95_high": 0.24382812499999956,
+            "p_value_mean_gt_0": 0.0029997000299970002
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 44.0,
+            "mean": 0.022727272727272728,
+            "ci95_low": 0.0,
+            "ci95_high": 0.06818181818181818,
+            "p_value_mean_gt_0": 0.49605039496050396
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 301.0,
+        "raw_attack_error_rate": 0.188125,
+        "escalated_attacks": 79.0,
+        "attack_escalation_rate": 0.049375,
+        "attack_error_capture_rate": 0.24584717607973422,
+        "retained_attacks": 1521.0,
+        "retained_attack_error_rate": 0.1492439184746877,
+        "residual_error_mass": 0.141875,
+        "false_escalation_given_raw_correct": 0.003849114703618168,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.049375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.188125,
+            "ci95_low": 0.0925,
+            "ci95_high": 0.2918906249999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.049375,
+            "ci95_low": 0.015,
+            "ci95_high": 0.0975,
+            "p_value_mean_gt_0": 0.0033996600339966003
+          },
+          "attack_error_capture_rate": {
+            "n": 14.0,
+            "mean": 0.4788359788359789,
+            "ci95_low": 0.21428571428571427,
+            "ci95_high": 0.7227513227513199,
+            "p_value_mean_gt_0": 0.0078125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.1523076923076923,
+            "ci95_low": 0.06,
+            "ci95_high": 0.25242307692307625,
+            "p_value_mean_gt_0": 0.0029997000299970002
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.141875,
+            "ci95_low": 0.06,
+            "ci95_high": 0.24195312499999957,
+            "p_value_mean_gt_0": 0.0044995500449955
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 44.0,
+            "mean": 0.022727272727272728,
+            "ci95_low": 0.0,
+            "ci95_high": 0.06818181818181818,
+            "p_value_mean_gt_0": 0.49845015498450157
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "BingoGuard-50": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 2150,
+    "n_bases": 50,
+    "role_counts": {
+      "attack": 1600,
+      "clean": 50,
+      "matched_neutral_control": 500
+    },
+    "primary_attack_records": 1600,
+    "clean_reference_records": 50,
+    "attack_metrics": {
+      "n_primary_attacks": 1600,
+      "raw_attack_errors": 192.0,
+      "raw_attack_error_rate": 0.12,
+      "escalated_attacks": 81.0,
+      "attack_escalation_rate": 0.050625,
+      "attack_error_capture_rate": 0.2708333333333333,
+      "retained_attacks": 1519.0,
+      "retained_attack_error_rate": 0.09216589861751152,
+      "residual_error_mass": 0.0875,
+      "false_escalation_given_raw_correct": 0.020596590909090908,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.02,
+      "prediction_disagreement_rate": 0.050625,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.12,
+          "ci95_low": 0.051859375,
+          "ci95_high": 0.20126562499999992,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.050625,
+          "ci95_low": 0.016875,
+          "ci95_high": 0.09375,
+          "p_value_mean_gt_0": 0.0004999500049995
+        },
+        "attack_error_capture_rate": {
+          "n": 13.0,
+          "mean": 0.6093362282878412,
+          "ci95_low": 0.3605730459057072,
+          "ci95_high": 0.838895781637717,
+          "p_value_mean_gt_0": 0.001953125
+        },
+        "retained_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.11155555555555555,
+          "ci95_low": 0.037111111111111116,
+          "ci95_high": 0.2,
+          "p_value_mean_gt_0": 0.0065993400659934
+        },
+        "residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.0875,
+          "ci95_low": 0.023125,
+          "ci95_high": 0.1600156249999999,
+          "p_value_mean_gt_0": 0.007899210078992101
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 49.0,
+          "mean": 0.09872448979591837,
+          "ci95_low": 0.028022959183673472,
+          "ci95_high": 0.1836734693877551,
+          "p_value_mean_gt_0": 0.013998600139986002
+        },
+        "missing_control_rate": {
+          "n": 50.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 50,
+      "clean_reference_escalation_rate": 0.1,
+      "clean_reference_raw_error_rate": 0.06,
+      "retained_clean_reference_error_rate": 0.044444444444444446,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.1,
+          "ci95_low": 0.02,
+          "ci95_high": 0.18,
+          "p_value_mean_gt_0": 0.0301969803019698
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 50.0,
+          "mean": 0.06,
+          "ci95_low": 0.0,
+          "ci95_high": 0.14,
+          "p_value_mean_gt_0": 0.12238776122387761
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 45.0,
+          "mean": 0.044444444444444446,
+          "ci95_low": 0.0,
+          "ci95_high": 0.1111111111111111,
+          "p_value_mean_gt_0": 0.2508749125087491
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 1600,
+      "auto_decision_rate": 0.98,
+      "abstention_rate": 0.02,
+      "override_rate_on_auto": 0.03125,
+      "raw_error_rate_on_auto": 0.10778061224489796,
+      "wrapped_error_rate_on_auto": 0.10204081632653061,
+      "automatic_residual_error_mass": 0.1,
+      "abstained_raw_error_capture": 0.11979166666666667,
+      "correction_rate_given_raw_error": 0.15104166666666666,
+      "induced_error_given_raw_correct": 0.014204545454545454,
+      "override_precision": 0.5918367346938775,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.02,
+      "label_metrics": {
+        "safe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 0.96,
+          "raw_error_rate_on_auto": 0.16666666666666666,
+          "wrapped_error_rate_on_auto": 0.16666666666666666,
+          "induced_error_given_raw_correct": 0.030816640986132512
+        },
+        "unsafe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.05125,
+          "wrapped_error_rate_on_auto": 0.04,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.98,
+          "ci95_low": 0.95,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.02,
+          "ci95_low": 0.0,
+          "ci95_high": 0.05,
+          "p_value_mean_gt_0": 0.2440755924407559
+        },
+        "raw_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.118125,
+          "ci95_low": 0.04684375,
+          "ci95_high": 0.19876562499999992,
+          "p_value_mean_gt_0": 0.00019998000199980003
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.115,
+          "ci95_low": 0.04,
+          "ci95_high": 0.2,
+          "p_value_mean_gt_0": 0.0081991800819918
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.1,
+          "ci95_low": 0.03,
+          "ci95_high": 0.19,
+          "p_value_mean_gt_0": 0.0086991300869913
+        },
+        "correction_rate_given_raw_error": {
+          "n": 13.0,
+          "mean": 0.5208333333333333,
+          "ci95_low": 0.24358974358974358,
+          "ci95_high": 0.7692307692307693,
+          "p_value_mean_gt_0": 0.00390625
+        },
+        "induced_error_given_raw_correct": {
+          "n": 49.0,
+          "mean": 0.07015306122448979,
+          "ci95_low": 0.008928571428571428,
+          "ci95_high": 0.14285714285714285,
+          "p_value_mean_gt_0": 0.030396960303969604
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 50,
+      "auto_decision_rate": 0.92,
+      "abstention_rate": 0.08,
+      "override_rate_on_auto": 0.021739130434782608,
+      "raw_error_rate_on_auto": 0.043478260869565216,
+      "wrapped_error_rate_on_auto": 0.06521739130434782,
+      "automatic_residual_error_mass": 0.06,
+      "abstained_raw_error_capture": 0.3333333333333333,
+      "correction_rate_given_raw_error": 0.0,
+      "induced_error_given_raw_correct": 0.02127659574468085,
+      "override_precision": 0.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.08,
+      "label_metrics": {
+        "safe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 0.84,
+          "raw_error_rate_on_auto": 0.047619047619047616,
+          "wrapped_error_rate_on_auto": 0.09523809523809523,
+          "induced_error_given_raw_correct": 0.043478260869565216
+        },
+        "unsafe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.04,
+          "wrapped_error_rate_on_auto": 0.04,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.92,
+          "ci95_low": 0.84,
+          "ci95_high": 0.98,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.08,
+          "ci95_low": 0.02,
+          "ci95_high": 0.16,
+          "p_value_mean_gt_0": 0.0634936506349365
+        },
+        "raw_error_rate_on_auto": {
+          "n": 46.0,
+          "mean": 0.043478260869565216,
+          "ci95_low": 0.0,
+          "ci95_high": 0.10869565217391304,
+          "p_value_mean_gt_0": 0.25507449255074494
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 46.0,
+          "mean": 0.06521739130434782,
+          "ci95_low": 0.0,
+          "ci95_high": 0.15217391304347827,
+          "p_value_mean_gt_0": 0.12818718128187181
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.06,
+          "ci95_low": 0.0,
+          "ci95_high": 0.14,
+          "p_value_mean_gt_0": 0.11778822117788221
+        },
+        "correction_rate_given_raw_error": {
+          "n": 3.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        },
+        "induced_error_given_raw_correct": {
+          "n": 47.0,
+          "mean": 0.02127659574468085,
+          "ci95_low": 0.0,
+          "ci95_high": 0.06382978723404255,
+          "p_value_mean_gt_0": 0.5068493150684932
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 192.0,
+        "raw_attack_error_rate": 0.12,
+        "escalated_attacks": 81.0,
+        "attack_escalation_rate": 0.050625,
+        "attack_error_capture_rate": 0.2708333333333333,
+        "retained_attacks": 1519.0,
+        "retained_attack_error_rate": 0.09216589861751152,
+        "residual_error_mass": 0.0875,
+        "false_escalation_given_raw_correct": 0.020596590909090908,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.02,
+        "prediction_disagreement_rate": 0.050625,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.12,
+            "ci95_low": 0.051859375,
+            "ci95_high": 0.20126562499999992,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.050625,
+            "ci95_low": 0.016875,
+            "ci95_high": 0.09375,
+            "p_value_mean_gt_0": 0.0004999500049995
+          },
+          "attack_error_capture_rate": {
+            "n": 13.0,
+            "mean": 0.6093362282878412,
+            "ci95_low": 0.3605730459057072,
+            "ci95_high": 0.838895781637717,
+            "p_value_mean_gt_0": 0.001953125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.11155555555555555,
+            "ci95_low": 0.037111111111111116,
+            "ci95_high": 0.2,
+            "p_value_mean_gt_0": 0.0065993400659934
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.0875,
+            "ci95_low": 0.023125,
+            "ci95_high": 0.1600156249999999,
+            "p_value_mean_gt_0": 0.007899210078992101
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 49.0,
+            "mean": 0.09872448979591837,
+            "ci95_low": 0.028022959183673472,
+            "ci95_high": 0.1836734693877551,
+            "p_value_mean_gt_0": 0.013998600139986002
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 192.0,
+        "raw_attack_error_rate": 0.12,
+        "escalated_attacks": 58.0,
+        "attack_escalation_rate": 0.03625,
+        "attack_error_capture_rate": 0.171875,
+        "retained_attacks": 1542.0,
+        "retained_attack_error_rate": 0.10311284046692606,
+        "residual_error_mass": 0.099375,
+        "false_escalation_given_raw_correct": 0.01775568181818182,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.03625,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.12,
+            "ci95_low": 0.047484375,
+            "ci95_high": 0.199375,
+            "p_value_mean_gt_0": 0.00019998000199980003
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.03625,
+            "ci95_low": 0.013125,
+            "ci95_high": 0.066875,
+            "p_value_mean_gt_0": 0.0004999500049995
+          },
+          "attack_error_capture_rate": {
+            "n": 13.0,
+            "mean": 0.546474358974359,
+            "ci95_low": 0.2833333333333333,
+            "ci95_high": 0.7772435897435899,
+            "p_value_mean_gt_0": 0.00390625
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.11333333333333333,
+            "ci95_low": 0.03883333333333333,
+            "ci95_high": 0.2011111111111111,
+            "p_value_mean_gt_0": 0.007099290070992901
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.099375,
+            "ci95_low": 0.031218750000000003,
+            "ci95_high": 0.186875,
+            "p_value_mean_gt_0": 0.0064993500649935
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 49.0,
+            "mean": 0.09464285714285714,
+            "ci95_low": 0.026020408163265306,
+            "ci95_high": 0.18163265306122445,
+            "p_value_mean_gt_0": 0.016798320167983202
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 192.0,
+        "raw_attack_error_rate": 0.12,
+        "escalated_attacks": 72.0,
+        "attack_escalation_rate": 0.045,
+        "attack_error_capture_rate": 0.25,
+        "retained_attacks": 1528.0,
+        "retained_attack_error_rate": 0.09424083769633508,
+        "residual_error_mass": 0.09,
+        "false_escalation_given_raw_correct": 0.017045454545454544,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.045,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.12,
+            "ci95_low": 0.048125,
+            "ci95_high": 0.2050156249999999,
+            "p_value_mean_gt_0": 0.00019998000199980003
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.045,
+            "ci95_low": 0.01625,
+            "ci95_high": 0.08,
+            "p_value_mean_gt_0": 0.0004999500049995
+          },
+          "attack_error_capture_rate": {
+            "n": 13.0,
+            "mean": 0.5836952026468155,
+            "ci95_low": 0.3396815550041356,
+            "ci95_high": 0.7980769230769231,
+            "p_value_mean_gt_0": 0.001953125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.11215686274509803,
+            "ci95_low": 0.03882352941176471,
+            "ci95_high": 0.2054248366013072,
+            "p_value_mean_gt_0": 0.007899210078992101
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.09,
+            "ci95_low": 0.023125,
+            "ci95_high": 0.1606406249999999,
+            "p_value_mean_gt_0": 0.007499250074992501
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 49.0,
+            "mean": 0.07423469387755102,
+            "ci95_low": 0.013010204081632653,
+            "ci95_high": 0.14846938775510204,
+            "p_value_mean_gt_0": 0.032396760323967606
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "HarmAug-50": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 2150,
+    "n_bases": 50,
+    "role_counts": {
+      "attack": 1600,
+      "clean": 50,
+      "matched_neutral_control": 500
+    },
+    "primary_attack_records": 1600,
+    "clean_reference_records": 50,
+    "attack_metrics": {
+      "n_primary_attacks": 1600,
+      "raw_attack_errors": 215.0,
+      "raw_attack_error_rate": 0.134375,
+      "escalated_attacks": 39.0,
+      "attack_escalation_rate": 0.024375,
+      "attack_error_capture_rate": 0.14883720930232558,
+      "retained_attacks": 1561.0,
+      "retained_attack_error_rate": 0.11723254324151185,
+      "residual_error_mass": 0.114375,
+      "false_escalation_given_raw_correct": 0.005054151624548736,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.02,
+      "prediction_disagreement_rate": 0.024375,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.134375,
+          "ci95_low": 0.048109375,
+          "ci95_high": 0.231875,
+          "p_value_mean_gt_0": 0.0024997500249975004
+        },
+        "attack_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.024375,
+          "ci95_low": 0.00125,
+          "ci95_high": 0.05625,
+          "p_value_mean_gt_0": 0.029897010298970104
+        },
+        "attack_error_capture_rate": {
+          "n": 9.0,
+          "mean": 0.34285714285714286,
+          "ci95_low": 0.1037037037037037,
+          "ci95_high": 0.6243386243386243,
+          "p_value_mean_gt_0": 0.0625
+        },
+        "retained_attack_error_rate": {
+          "n": 50.0,
+          "mean": 0.13066666666666665,
+          "ci95_low": 0.04,
+          "ci95_high": 0.23066666666666666,
+          "p_value_mean_gt_0": 0.0072992700729927005
+        },
+        "residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.114375,
+          "ci95_low": 0.04,
+          "ci95_high": 0.203125,
+          "p_value_mean_gt_0": 0.0082991700829917
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 46.0,
+          "mean": 0.05138339920948617,
+          "ci95_low": 0.0,
+          "ci95_high": 0.12450592885375493,
+          "p_value_mean_gt_0": 0.1282871712828717
+        },
+        "missing_control_rate": {
+          "n": 50.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 50,
+      "clean_reference_escalation_rate": 0.04,
+      "clean_reference_raw_error_rate": 0.14,
+      "retained_clean_reference_error_rate": 0.10416666666666667,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 50.0,
+          "mean": 0.04,
+          "ci95_low": 0.0,
+          "ci95_high": 0.1,
+          "p_value_mean_gt_0": 0.24547545245475452
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 50.0,
+          "mean": 0.14,
+          "ci95_low": 0.04,
+          "ci95_high": 0.24,
+          "p_value_mean_gt_0": 0.0064993500649935
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 48.0,
+          "mean": 0.10416666666666667,
+          "ci95_low": 0.020833333333333332,
+          "ci95_high": 0.20833333333333334,
+          "p_value_mean_gt_0": 0.034896510348965105
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 1600,
+      "auto_decision_rate": 0.98,
+      "abstention_rate": 0.02,
+      "override_rate_on_auto": 0.004464285714285714,
+      "raw_error_rate_on_auto": 0.12053571428571429,
+      "wrapped_error_rate_on_auto": 0.11734693877551021,
+      "automatic_residual_error_mass": 0.115,
+      "abstained_raw_error_capture": 0.12093023255813953,
+      "correction_rate_given_raw_error": 0.027906976744186046,
+      "induced_error_given_raw_correct": 0.0007220216606498195,
+      "override_precision": 0.8571428571428571,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.02,
+      "label_metrics": {
+        "safe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 0.98,
+          "raw_error_rate_on_auto": 0.09821428571428571,
+          "wrapped_error_rate_on_auto": 0.09183673469387756,
+          "induced_error_given_raw_correct": 0.0014064697609001407
+        },
+        "unsafe_label": {
+          "n": 800.0,
+          "auto_decision_rate": 0.98,
+          "raw_error_rate_on_auto": 0.14285714285714285,
+          "wrapped_error_rate_on_auto": 0.14285714285714285,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.98,
+          "ci95_low": 0.95,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.02,
+          "ci95_low": 0.0,
+          "ci95_high": 0.05,
+          "p_value_mean_gt_0": 0.25177482251774824
+        },
+        "raw_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.13375,
+          "ci95_low": 0.05,
+          "ci95_high": 0.2387812499999998,
+          "p_value_mean_gt_0": 0.0017998200179982
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 50.0,
+          "mean": 0.13,
+          "ci95_low": 0.05,
+          "ci95_high": 0.23,
+          "p_value_mean_gt_0": 0.007799220077992201
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.115,
+          "ci95_low": 0.04,
+          "ci95_high": 0.205,
+          "p_value_mean_gt_0": 0.007099290070992901
+        },
+        "correction_rate_given_raw_error": {
+          "n": 9.0,
+          "mean": 0.2275132275132275,
+          "ci95_low": 0.005291005291005291,
+          "ci95_high": 0.5555555555555556,
+          "p_value_mean_gt_0": 0.125
+        },
+        "induced_error_given_raw_correct": {
+          "n": 46.0,
+          "mean": 0.021739130434782608,
+          "ci95_low": 0.0,
+          "ci95_high": 0.06521739130434782,
+          "p_value_mean_gt_0": 0.5031496850314968
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 50,
+      "auto_decision_rate": 0.96,
+      "abstention_rate": 0.04,
+      "override_rate_on_auto": 0.0,
+      "raw_error_rate_on_auto": 0.10416666666666667,
+      "wrapped_error_rate_on_auto": 0.10416666666666667,
+      "automatic_residual_error_mass": 0.1,
+      "abstained_raw_error_capture": 0.2857142857142857,
+      "correction_rate_given_raw_error": 0.0,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": null,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.04,
+      "label_metrics": {
+        "safe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 0.96,
+          "raw_error_rate_on_auto": 0.08333333333333333,
+          "wrapped_error_rate_on_auto": 0.08333333333333333,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 25.0,
+          "auto_decision_rate": 0.96,
+          "raw_error_rate_on_auto": 0.125,
+          "wrapped_error_rate_on_auto": 0.125,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 50.0,
+          "mean": 0.96,
+          "ci95_low": 0.9,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 50.0,
+          "mean": 0.04,
+          "ci95_low": 0.0,
+          "ci95_high": 0.1,
+          "p_value_mean_gt_0": 0.25647435256474355
+        },
+        "raw_error_rate_on_auto": {
+          "n": 48.0,
+          "mean": 0.10416666666666667,
+          "ci95_low": 0.04114583333333336,
+          "ci95_high": 0.1875,
+          "p_value_mean_gt_0": 0.0301969803019698
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 48.0,
+          "mean": 0.10416666666666667,
+          "ci95_low": 0.020833333333333332,
+          "ci95_high": 0.20833333333333334,
+          "p_value_mean_gt_0": 0.028697130286971302
+        },
+        "automatic_residual_error_mass": {
+          "n": 50.0,
+          "mean": 0.1,
+          "ci95_low": 0.02,
+          "ci95_high": 0.18,
+          "p_value_mean_gt_0": 0.0306969303069693
+        },
+        "correction_rate_given_raw_error": {
+          "n": 7.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        },
+        "induced_error_given_raw_correct": {
+          "n": 43.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 215.0,
+        "raw_attack_error_rate": 0.134375,
+        "escalated_attacks": 39.0,
+        "attack_escalation_rate": 0.024375,
+        "attack_error_capture_rate": 0.14883720930232558,
+        "retained_attacks": 1561.0,
+        "retained_attack_error_rate": 0.11723254324151185,
+        "residual_error_mass": 0.114375,
+        "false_escalation_given_raw_correct": 0.005054151624548736,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.02,
+        "prediction_disagreement_rate": 0.024375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.134375,
+            "ci95_low": 0.048109375,
+            "ci95_high": 0.231875,
+            "p_value_mean_gt_0": 0.0024997500249975004
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.024375,
+            "ci95_low": 0.00125,
+            "ci95_high": 0.05625,
+            "p_value_mean_gt_0": 0.029897010298970104
+          },
+          "attack_error_capture_rate": {
+            "n": 9.0,
+            "mean": 0.34285714285714286,
+            "ci95_low": 0.1037037037037037,
+            "ci95_high": 0.6243386243386243,
+            "p_value_mean_gt_0": 0.0625
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.13066666666666665,
+            "ci95_low": 0.04,
+            "ci95_high": 0.23066666666666666,
+            "p_value_mean_gt_0": 0.0072992700729927005
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.114375,
+            "ci95_low": 0.04,
+            "ci95_high": 0.203125,
+            "p_value_mean_gt_0": 0.0082991700829917
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 46.0,
+            "mean": 0.05138339920948617,
+            "ci95_low": 0.0,
+            "ci95_high": 0.12450592885375493,
+            "p_value_mean_gt_0": 0.1282871712828717
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 215.0,
+        "raw_attack_error_rate": 0.134375,
+        "escalated_attacks": 25.0,
+        "attack_escalation_rate": 0.015625,
+        "attack_error_capture_rate": 0.09302325581395349,
+        "retained_attacks": 1575.0,
+        "retained_attack_error_rate": 0.12380952380952381,
+        "residual_error_mass": 0.121875,
+        "false_escalation_given_raw_correct": 0.0036101083032490976,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.015625,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.134375,
+            "ci95_low": 0.053734375,
+            "ci95_high": 0.233125,
+            "p_value_mean_gt_0": 0.0017998200179982
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.015625,
+            "ci95_low": 0.001875,
+            "ci95_high": 0.036875,
+            "p_value_mean_gt_0": 0.031596840315968405
+          },
+          "attack_error_capture_rate": {
+            "n": 9.0,
+            "mean": 0.27936507936507937,
+            "ci95_low": 0.05185185185185185,
+            "ci95_high": 0.5587830687830685,
+            "p_value_mean_gt_0": 0.0625
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.1325925925925926,
+            "ci95_low": 0.04962962962962963,
+            "ci95_high": 0.2355925925925924,
+            "p_value_mean_gt_0": 0.0072992700729927005
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.121875,
+            "ci95_low": 0.045,
+            "ci95_high": 0.2137656249999999,
+            "p_value_mean_gt_0": 0.009099090090990901
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 46.0,
+            "mean": 0.02964426877470356,
+            "ci95_low": 0.0,
+            "ci95_high": 0.08695652173913043,
+            "p_value_mean_gt_0": 0.25507449255074494
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 1600,
+        "raw_attack_errors": 215.0,
+        "raw_attack_error_rate": 0.134375,
+        "escalated_attacks": 21.0,
+        "attack_escalation_rate": 0.013125,
+        "attack_error_capture_rate": 0.08372093023255814,
+        "retained_attacks": 1579.0,
+        "retained_attack_error_rate": 0.12476250791640278,
+        "residual_error_mass": 0.123125,
+        "false_escalation_given_raw_correct": 0.0021660649819494585,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.013125,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.134375,
+            "ci95_low": 0.055593750000000004,
+            "ci95_high": 0.22629687499999976,
+            "p_value_mean_gt_0": 0.0025997400259974
+          },
+          "attack_escalation_rate": {
+            "n": 50.0,
+            "mean": 0.013125,
+            "ci95_low": 0.00125,
+            "ci95_high": 0.0325,
+            "p_value_mean_gt_0": 0.028897110288971104
+          },
+          "attack_error_capture_rate": {
+            "n": 9.0,
+            "mean": 0.291005291005291,
+            "ci95_low": 0.0,
+            "ci95_high": 0.582010582010582,
+            "p_value_mean_gt_0": 0.125
+          },
+          "retained_attack_error_rate": {
+            "n": 50.0,
+            "mean": 0.12842105263157894,
+            "ci95_low": 0.0483421052631579,
+            "ci95_high": 0.22526315789473686,
+            "p_value_mean_gt_0": 0.0084991500849915
+          },
+          "residual_error_mass": {
+            "n": 50.0,
+            "mean": 0.123125,
+            "ci95_low": 0.04,
+            "ci95_high": 0.2200156249999999,
+            "p_value_mean_gt_0": 0.008399160083991601
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 46.0,
+            "mean": 0.043478260869565216,
+            "ci95_low": 0.0,
+            "ci95_high": 0.10869565217391304,
+            "p_value_mean_gt_0": 0.24397560243975602
+          },
+          "missing_control_rate": {
+            "n": 50.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "DynaGuard-PKU200": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 8597,
+    "n_bases": 200,
+    "role_counts": {
+      "attack": 6398,
+      "clean": 200,
+      "matched_neutral_control": 1999
+    },
+    "primary_attack_records": 6398,
+    "clean_reference_records": 200,
+    "attack_metrics": {
+      "n_primary_attacks": 6398,
+      "raw_attack_errors": 2006.0,
+      "raw_attack_error_rate": 0.3135354798374492,
+      "escalated_attacks": 918.0,
+      "attack_escalation_rate": 0.1434823382306971,
+      "attack_error_capture_rate": 0.4546360917248255,
+      "retained_attacks": 5480.0,
+      "retained_attack_error_rate": 0.19963503649635037,
+      "residual_error_mass": 0.17099093466708346,
+      "false_escalation_given_raw_correct": 0.001366120218579235,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.015004688965301657,
+      "prediction_disagreement_rate": 0.1434823382306971,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 1.99890590809628,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.31373958333333335,
+          "ci95_low": 0.25731796875,
+          "ci95_high": 0.3711013020833333,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.14373958333333334,
+          "ci95_low": 0.11077682291666667,
+          "ci95_high": 0.18188177083333332,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_error_capture_rate": {
+          "n": 97.0,
+          "mean": 0.6449306789904017,
+          "ci95_low": 0.5516637931034483,
+          "ci95_high": 0.7336946320654106,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_attack_error_rate": {
+          "n": 199.0,
+          "mean": 0.18896112262946435,
+          "ci95_low": 0.13733937754038258,
+          "ci95_high": 0.245212074357803,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.1709375,
+          "ci95_low": 0.12,
+          "ci95_high": 0.22125781249999996,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 165.0,
+          "mean": 0.008894136166863438,
+          "ci95_low": 0.0,
+          "ci95_high": 0.02274695001967729,
+          "p_value_mean_gt_0": 0.12768723127687232
+        },
+        "missing_control_rate": {
+          "n": 200.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 200,
+      "clean_reference_escalation_rate": 0.08,
+      "clean_reference_raw_error_rate": 0.17,
+      "retained_clean_reference_error_rate": 0.15217391304347827,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.08,
+          "ci95_low": 0.045,
+          "ci95_high": 0.12,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 200.0,
+          "mean": 0.17,
+          "ci95_low": 0.115,
+          "ci95_high": 0.22,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 184.0,
+          "mean": 0.15217391304347827,
+          "ci95_low": 0.10326086956521739,
+          "ci95_high": 0.20652173913043478,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 6398,
+      "auto_decision_rate": 0.9849953110346984,
+      "abstention_rate": 0.015004688965301657,
+      "override_rate_on_auto": 0.13043478260869565,
+      "raw_error_rate_on_auto": 0.30371310695017456,
+      "wrapped_error_rate_on_auto": 0.17391304347826086,
+      "automatic_residual_error_mass": 0.1713035323538606,
+      "abstained_raw_error_capture": 0.045862412761714856,
+      "correction_rate_given_raw_error": 0.4087736789631107,
+      "induced_error_given_raw_correct": 0.0004553734061930783,
+      "override_precision": 0.9975669099756691,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.015004688965301657,
+      "label_metrics": {
+        "safe_label": {
+          "n": 3198.0,
+          "auto_decision_rate": 0.9699812382739212,
+          "raw_error_rate_on_auto": 0.6170212765957447,
+          "wrapped_error_rate_on_auto": 0.3533204384268214,
+          "induced_error_given_raw_correct": 0.0016778523489932886
+        },
+        "unsafe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.0,
+          "wrapped_error_rate_on_auto": 0.0,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.9849166666666668,
+          "ci95_low": 0.9749166666666668,
+          "ci95_high": 0.9936666666666667,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.015083333333333332,
+          "ci95_low": 0.007472916666666668,
+          "ci95_high": 0.023916666666666666,
+          "p_value_mean_gt_0": 0.000999900009999
+        },
+        "raw_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.3118560606060606,
+          "ci95_low": 0.25857090435606056,
+          "ci95_high": 0.3699810606060606,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.1775,
+          "ci95_low": 0.12708333333333333,
+          "ci95_high": 0.23,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.17125,
+          "ci95_low": 0.12,
+          "ci95_high": 0.225,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 97.0,
+          "mean": 0.6105793495005074,
+          "ci95_low": 0.5184081799306531,
+          "ci95_high": 0.7085838433875845,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "induced_error_given_raw_correct": {
+          "n": 165.0,
+          "mean": 0.006060606060606061,
+          "ci95_low": 0.0,
+          "ci95_high": 0.01818181818181818,
+          "p_value_mean_gt_0": 0.5094490550944906
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 200,
+      "auto_decision_rate": 0.935,
+      "abstention_rate": 0.065,
+      "override_rate_on_auto": 0.016042780748663103,
+      "raw_error_rate_on_auto": 0.15508021390374332,
+      "wrapped_error_rate_on_auto": 0.16042780748663102,
+      "automatic_residual_error_mass": 0.15,
+      "abstained_raw_error_capture": 0.14705882352941177,
+      "correction_rate_given_raw_error": 0.029411764705882353,
+      "induced_error_given_raw_correct": 0.012048192771084338,
+      "override_precision": 0.3333333333333333,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.065,
+      "label_metrics": {
+        "safe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.87,
+          "raw_error_rate_on_auto": 0.3333333333333333,
+          "wrapped_error_rate_on_auto": 0.3448275862068966,
+          "induced_error_given_raw_correct": 0.030303030303030304
+        },
+        "unsafe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.0,
+          "wrapped_error_rate_on_auto": 0.0,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.935,
+          "ci95_low": 0.9,
+          "ci95_high": 0.965,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.065,
+          "ci95_low": 0.03487500000000001,
+          "ci95_high": 0.1,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "raw_error_rate_on_auto": {
+          "n": 187.0,
+          "mean": 0.15508021390374332,
+          "ci95_low": 0.10695187165775401,
+          "ci95_high": 0.20855614973262032,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 187.0,
+          "mean": 0.16042780748663102,
+          "ci95_low": 0.11229946524064172,
+          "ci95_high": 0.21390374331550802,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.15,
+          "ci95_low": 0.1,
+          "ci95_high": 0.2,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 34.0,
+          "mean": 0.029411764705882353,
+          "ci95_low": 0.0,
+          "ci95_high": 0.08823529411764706,
+          "p_value_mean_gt_0": 0.5036496350364964
+        },
+        "induced_error_given_raw_correct": {
+          "n": 166.0,
+          "mean": 0.012048192771084338,
+          "ci95_low": 0.0,
+          "ci95_high": 0.030120481927710843,
+          "p_value_mean_gt_0": 0.2506749325067493
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 6398,
+        "raw_attack_errors": 2006.0,
+        "raw_attack_error_rate": 0.3135354798374492,
+        "escalated_attacks": 918.0,
+        "attack_escalation_rate": 0.1434823382306971,
+        "attack_error_capture_rate": 0.4546360917248255,
+        "retained_attacks": 5480.0,
+        "retained_attack_error_rate": 0.19963503649635037,
+        "residual_error_mass": 0.17099093466708346,
+        "false_escalation_given_raw_correct": 0.001366120218579235,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.015004688965301657,
+        "prediction_disagreement_rate": 0.1434823382306971,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.99890590809628,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.31373958333333335,
+            "ci95_low": 0.25731796875,
+            "ci95_high": 0.3711013020833333,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.14373958333333334,
+            "ci95_low": 0.11077682291666667,
+            "ci95_high": 0.18188177083333332,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 97.0,
+            "mean": 0.6449306789904017,
+            "ci95_low": 0.5516637931034483,
+            "ci95_high": 0.7336946320654106,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 199.0,
+            "mean": 0.18896112262946435,
+            "ci95_low": 0.13733937754038258,
+            "ci95_high": 0.245212074357803,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.1709375,
+            "ci95_low": 0.12,
+            "ci95_high": 0.22125781249999996,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 165.0,
+            "mean": 0.008894136166863438,
+            "ci95_low": 0.0,
+            "ci95_high": 0.02274695001967729,
+            "p_value_mean_gt_0": 0.12768723127687232
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 6398,
+        "raw_attack_errors": 2006.0,
+        "raw_attack_error_rate": 0.3135354798374492,
+        "escalated_attacks": 874.0,
+        "attack_escalation_rate": 0.1366051891216005,
+        "attack_error_capture_rate": 0.43469591226321036,
+        "retained_attacks": 5524.0,
+        "retained_attack_error_rate": 0.2052860246198407,
+        "residual_error_mass": 0.1772428884026258,
+        "false_escalation_given_raw_correct": 0.0004553734061930783,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.1366051891216005,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.31373958333333335,
+            "ci95_low": 0.26090781250000006,
+            "ci95_high": 0.36797604166666664,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.13678125,
+            "ci95_low": 0.10427734374999999,
+            "ci95_high": 0.16878203124999996,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 97.0,
+            "mean": 0.6302357068888237,
+            "ci95_low": 0.5350647768899056,
+            "ci95_high": 0.7151850221796316,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.20055177158582732,
+            "ci95_low": 0.14609356725146197,
+            "ci95_high": 0.2542506621947025,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.17727083333333332,
+            "ci95_low": 0.1275,
+            "ci95_high": 0.22736770833333325,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 165.0,
+            "mean": 0.006060606060606061,
+            "ci95_low": 0.0,
+            "ci95_high": 0.01818181818181818,
+            "p_value_mean_gt_0": 0.5073492650734927
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 6398,
+        "raw_attack_errors": 2006.0,
+        "raw_attack_error_rate": 0.3135354798374492,
+        "escalated_attacks": 866.0,
+        "attack_escalation_rate": 0.13535479837449202,
+        "attack_error_capture_rate": 0.4287138584247258,
+        "retained_attacks": 5532.0,
+        "retained_attack_error_rate": 0.20715835140997832,
+        "residual_error_mass": 0.17911847452328852,
+        "false_escalation_given_raw_correct": 0.001366120218579235,
+        "missing_control_rate": 0.0010940919037199124,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.13426070647077212,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 0.9989059080962801,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.31373958333333335,
+            "ci95_low": 0.25980703125000004,
+            "ci95_high": 0.3714098958333333,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.13561458333333334,
+            "ci95_low": 0.10466302083333334,
+            "ci95_high": 0.16856302083333333,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 97.0,
+            "mean": 0.6252743216020856,
+            "ci95_low": 0.5284699905202038,
+            "ci95_high": 0.7191079511790497,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 199.0,
+            "mean": 0.19263023389605957,
+            "ci95_low": 0.14103015075376885,
+            "ci95_high": 0.24718214364241983,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.1790625,
+            "ci95_low": 0.13061718749999998,
+            "ci95_high": 0.2296875,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 165.0,
+            "mean": 0.008894136166863438,
+            "ci95_low": 0.0,
+            "ci95_high": 0.02274695001967729,
+            "p_value_mean_gt_0": 0.1227877212278772
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0011666666666666668,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0034999999999999996,
+            "p_value_mean_gt_0": 0.5029497050294971
+          }
+        }
+      }
+    }
+  },
+  "WildGuard-PKU200": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 8600,
+    "n_bases": 200,
+    "role_counts": {
+      "attack": 6400,
+      "clean": 200,
+      "matched_neutral_control": 2000
+    },
+    "primary_attack_records": 6400,
+    "clean_reference_records": 200,
+    "attack_metrics": {
+      "n_primary_attacks": 6400,
+      "raw_attack_errors": 1549.0,
+      "raw_attack_error_rate": 0.24203125,
+      "escalated_attacks": 212.0,
+      "attack_escalation_rate": 0.033125,
+      "attack_error_capture_rate": 0.13363460296965785,
+      "retained_attacks": 6188.0,
+      "retained_attack_error_rate": 0.21687136393018747,
+      "residual_error_mass": 0.2096875,
+      "false_escalation_given_raw_correct": 0.0010307153164296021,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.0075,
+      "prediction_disagreement_rate": 0.033125,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.24203125,
+          "ci95_low": 0.184375,
+          "ci95_high": 0.30220703124999987,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.033125,
+          "ci95_low": 0.01625,
+          "ci95_high": 0.0528125,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_error_capture_rate": {
+          "n": 58.0,
+          "mean": 0.2737457573942557,
+          "ci95_low": 0.1756813125695217,
+          "ci95_high": 0.3855435883175038,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.2268769230769231,
+          "ci95_low": 0.17106884615384618,
+          "ci95_high": 0.28480384615384613,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.2096875,
+          "ci95_low": 0.155,
+          "ci95_high": 0.2634375,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 160.0,
+          "mean": 0.019791666666666666,
+          "ci95_low": 0.0010416666666666667,
+          "ci95_high": 0.04479166666666666,
+          "p_value_mean_gt_0": 0.06479352064793521
+        },
+        "missing_control_rate": {
+          "n": 200.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 200,
+      "clean_reference_escalation_rate": 0.045,
+      "clean_reference_raw_error_rate": 0.235,
+      "retained_clean_reference_error_rate": 0.20418848167539266,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.045,
+          "ci95_low": 0.02,
+          "ci95_high": 0.075,
+          "p_value_mean_gt_0": 0.0025997400259974
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 200.0,
+          "mean": 0.235,
+          "ci95_low": 0.179875,
+          "ci95_high": 0.295,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 191.0,
+          "mean": 0.20418848167539266,
+          "ci95_low": 0.15170157068062828,
+          "ci95_high": 0.2617801047120419,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 6400,
+      "auto_decision_rate": 0.9925,
+      "abstention_rate": 0.0075,
+      "override_rate_on_auto": 0.025818639798488665,
+      "raw_error_rate_on_auto": 0.2367758186397985,
+      "wrapped_error_rate_on_auto": 0.21158690176322417,
+      "automatic_residual_error_mass": 0.21,
+      "abstained_raw_error_capture": 0.029051000645577793,
+      "correction_rate_given_raw_error": 0.10458360232408005,
+      "induced_error_given_raw_correct": 0.00041228612657184083,
+      "override_precision": 0.9878048780487805,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.0075,
+      "label_metrics": {
+        "safe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 0.985,
+          "raw_error_rate_on_auto": 0.45748730964467005,
+          "wrapped_error_rate_on_auto": 0.40609137055837563,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.019375,
+          "wrapped_error_rate_on_auto": 0.02,
+          "induced_error_given_raw_correct": 0.0006373486297004461
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.9925,
+          "ci95_low": 0.985,
+          "ci95_high": 0.99875,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.0075,
+          "ci95_low": 0.00125,
+          "ci95_high": 0.015,
+          "p_value_mean_gt_0": 0.030996900309969003
+        },
+        "raw_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.2422395833333333,
+          "ci95_low": 0.18645312499999997,
+          "ci95_high": 0.3020833333333333,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.215,
+          "ci95_low": 0.16,
+          "ci95_high": 0.27501041666666665,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.21,
+          "ci95_low": 0.15625,
+          "ci95_high": 0.265,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 58.0,
+          "mean": 0.2482473403496763,
+          "ci95_low": 0.15014412381278344,
+          "ci95_high": 0.3536739539659449,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "induced_error_given_raw_correct": {
+          "n": 160.0,
+          "mean": 0.00625,
+          "ci95_low": 0.0,
+          "ci95_high": 0.01875,
+          "p_value_mean_gt_0": 0.5056494350564944
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 200,
+      "auto_decision_rate": 0.965,
+      "abstention_rate": 0.035,
+      "override_rate_on_auto": 0.010362694300518135,
+      "raw_error_rate_on_auto": 0.21243523316062177,
+      "wrapped_error_rate_on_auto": 0.20207253886010362,
+      "automatic_residual_error_mass": 0.195,
+      "abstained_raw_error_capture": 0.1276595744680851,
+      "correction_rate_given_raw_error": 0.0425531914893617,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": 1.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.035,
+      "label_metrics": {
+        "safe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.93,
+          "raw_error_rate_on_auto": 0.41935483870967744,
+          "wrapped_error_rate_on_auto": 0.3978494623655914,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.02,
+          "wrapped_error_rate_on_auto": 0.02,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.965,
+          "ci95_low": 0.935,
+          "ci95_high": 0.985,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.035,
+          "ci95_low": 0.01,
+          "ci95_high": 0.06,
+          "p_value_mean_gt_0": 0.006899310068993101
+        },
+        "raw_error_rate_on_auto": {
+          "n": 193.0,
+          "mean": 0.21243523316062177,
+          "ci95_low": 0.15544041450777202,
+          "ci95_high": 0.27461139896373055,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 193.0,
+          "mean": 0.20207253886010362,
+          "ci95_low": 0.14507772020725387,
+          "ci95_high": 0.25906735751295334,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.195,
+          "ci95_low": 0.145,
+          "ci95_high": 0.25,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 47.0,
+          "mean": 0.0425531914893617,
+          "ci95_low": 0.0,
+          "ci95_high": 0.10638297872340426,
+          "p_value_mean_gt_0": 0.25747425257474255
+        },
+        "induced_error_given_raw_correct": {
+          "n": 153.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1549.0,
+        "raw_attack_error_rate": 0.24203125,
+        "escalated_attacks": 212.0,
+        "attack_escalation_rate": 0.033125,
+        "attack_error_capture_rate": 0.13363460296965785,
+        "retained_attacks": 6188.0,
+        "retained_attack_error_rate": 0.21687136393018747,
+        "residual_error_mass": 0.2096875,
+        "false_escalation_given_raw_correct": 0.0010307153164296021,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0075,
+        "prediction_disagreement_rate": 0.033125,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.24203125,
+            "ci95_low": 0.184375,
+            "ci95_high": 0.30220703124999987,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.033125,
+            "ci95_low": 0.01625,
+            "ci95_high": 0.0528125,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 58.0,
+            "mean": 0.2737457573942557,
+            "ci95_low": 0.1756813125695217,
+            "ci95_high": 0.3855435883175038,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.2268769230769231,
+            "ci95_low": 0.17106884615384618,
+            "ci95_high": 0.28480384615384613,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.2096875,
+            "ci95_low": 0.155,
+            "ci95_high": 0.2634375,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 160.0,
+            "mean": 0.019791666666666666,
+            "ci95_low": 0.0010416666666666667,
+            "ci95_high": 0.04479166666666666,
+            "p_value_mean_gt_0": 0.06479352064793521
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1549.0,
+        "raw_attack_error_rate": 0.24203125,
+        "escalated_attacks": 175.0,
+        "attack_escalation_rate": 0.02734375,
+        "attack_error_capture_rate": 0.10974822466107166,
+        "retained_attacks": 6225.0,
+        "retained_attack_error_rate": 0.22152610441767068,
+        "residual_error_mass": 0.21546875,
+        "false_escalation_given_raw_correct": 0.0010307153164296021,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.02734375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.24203125,
+            "ci95_low": 0.18640234375,
+            "ci95_high": 0.29891015624999995,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.02734375,
+            "ci95_low": 0.01327734375,
+            "ci95_high": 0.04359765624999998,
+            "p_value_mean_gt_0": 0.00019998000199980003
+          },
+          "attack_error_capture_rate": {
+            "n": 58.0,
+            "mean": 0.2525576851772625,
+            "ci95_low": 0.1577391367901657,
+            "ci95_high": 0.36109259576167246,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.22755000000000003,
+            "ci95_low": 0.16899999999999998,
+            "ci95_high": 0.28750249999999994,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.21546875,
+            "ci95_low": 0.16296484375,
+            "ci95_high": 0.2736015625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 160.0,
+            "mean": 0.019791666666666666,
+            "ci95_low": 0.0010416666666666667,
+            "ci95_high": 0.04375,
+            "p_value_mean_gt_0": 0.06209379062093791
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1549.0,
+        "raw_attack_error_rate": 0.24203125,
+        "escalated_attacks": 201.0,
+        "attack_escalation_rate": 0.03140625,
+        "attack_error_capture_rate": 0.12846998063266624,
+        "retained_attacks": 6199.0,
+        "retained_attack_error_rate": 0.2177770608162607,
+        "residual_error_mass": 0.2109375,
+        "false_escalation_given_raw_correct": 0.00041228612657184083,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.03140625,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.24203125,
+            "ci95_low": 0.1890625,
+            "ci95_high": 0.3001718749999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.03140625,
+            "ci95_low": 0.015625,
+            "ci95_high": 0.049535156249999976,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 58.0,
+            "mean": 0.26943541256666953,
+            "ci95_low": 0.1698279783805368,
+            "ci95_high": 0.37677064615955047,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.22580746965452847,
+            "ci95_low": 0.17015761904761903,
+            "ci95_high": 0.2840090009337067,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.2109375,
+            "ci95_low": 0.155,
+            "ci95_high": 0.2650156249999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 160.0,
+            "mean": 0.00625,
+            "ci95_low": 0.0,
+            "ci95_high": 0.01875,
+            "p_value_mean_gt_0": 0.5008499150084992
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "DynaGuard-NonPKU200": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 8600,
+    "n_bases": 200,
+    "role_counts": {
+      "attack": 6400,
+      "clean": 200,
+      "matched_neutral_control": 2000
+    },
+    "primary_attack_records": 6400,
+    "clean_reference_records": 200,
+    "attack_metrics": {
+      "n_primary_attacks": 6400,
+      "raw_attack_errors": 3388.0,
+      "raw_attack_error_rate": 0.529375,
+      "escalated_attacks": 1228.0,
+      "attack_escalation_rate": 0.191875,
+      "attack_error_capture_rate": 0.35182998819362454,
+      "retained_attacks": 5172.0,
+      "retained_attack_error_rate": 0.4245939675174014,
+      "residual_error_mass": 0.343125,
+      "false_escalation_given_raw_correct": 0.01195219123505976,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.03625,
+      "prediction_disagreement_rate": 0.191875,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.529375,
+          "ci95_low": 0.46202734375,
+          "ci95_high": 0.5986015625,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.191875,
+          "ci95_low": 0.143578125,
+          "ci95_high": 0.24407031249999994,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_error_capture_rate": {
+          "n": 111.0,
+          "mean": 0.3691514094739901,
+          "ci95_low": 0.2860251380412671,
+          "ci95_high": 0.4567767364138332,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_attack_error_rate": {
+          "n": 181.0,
+          "mean": 0.41721301411909145,
+          "ci95_low": 0.3478397790055249,
+          "ci95_high": 0.48903621853898094,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.343125,
+          "ci95_low": 0.2826484375,
+          "ci95_high": 0.40828515624999995,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 112.0,
+          "mean": 0.05032467532467533,
+          "ci95_low": 0.01461038961038961,
+          "ci95_high": 0.09496753246753246,
+          "p_value_mean_gt_0": 0.0156984301569843
+        },
+        "missing_control_rate": {
+          "n": 200.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 200,
+      "clean_reference_escalation_rate": 0.13,
+      "clean_reference_raw_error_rate": 0.345,
+      "retained_clean_reference_error_rate": 0.3620689655172414,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.13,
+          "ci95_low": 0.085,
+          "ci95_high": 0.18,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 200.0,
+          "mean": 0.345,
+          "ci95_low": 0.28,
+          "ci95_high": 0.41,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 174.0,
+          "mean": 0.3620689655172414,
+          "ci95_low": 0.29310344827586204,
+          "ci95_high": 0.4367816091954023,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 6400,
+      "auto_decision_rate": 0.96375,
+      "abstention_rate": 0.03625,
+      "override_rate_on_auto": 0.1614785992217899,
+      "raw_error_rate_on_auto": 0.5116731517509727,
+      "wrapped_error_rate_on_auto": 0.36186770428015563,
+      "automatic_residual_error_mass": 0.34875,
+      "abstained_raw_error_capture": 0.06847697756788666,
+      "correction_rate_given_raw_error": 0.2833530106257379,
+      "induced_error_given_raw_correct": 0.01195219123505976,
+      "override_precision": 0.963855421686747,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.03625,
+      "label_metrics": {
+        "safe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 0.9275,
+          "raw_error_rate_on_auto": 0.980121293800539,
+          "wrapped_error_rate_on_auto": 0.6576819407008087,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 1.0,
+          "raw_error_rate_on_auto": 0.0771875,
+          "wrapped_error_rate_on_auto": 0.0875,
+          "induced_error_given_raw_correct": 0.012190992211310531
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.96375,
+          "ci95_low": 0.94746875,
+          "ci95_high": 0.97875,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.03625,
+          "ci95_low": 0.0225,
+          "ci95_high": 0.0525,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "raw_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.5293229166666668,
+          "ci95_low": 0.4593138020833333,
+          "ci95_high": 0.5931901041666665,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.3545833333333333,
+          "ci95_low": 0.2895833333333333,
+          "ci95_high": 0.42,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.34875,
+          "ci95_low": 0.285,
+          "ci95_high": 0.4125,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 111.0,
+          "mean": 0.30376344086021506,
+          "ci95_low": 0.229506320836966,
+          "ci95_high": 0.38266673931996514,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "induced_error_given_raw_correct": {
+          "n": 112.0,
+          "mean": 0.05032467532467533,
+          "ci95_low": 0.01461038961038961,
+          "ci95_high": 0.09180194805194762,
+          "p_value_mean_gt_0": 0.0174982501749825
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 200,
+      "auto_decision_rate": 0.88,
+      "abstention_rate": 0.12,
+      "override_rate_on_auto": 0.011363636363636364,
+      "raw_error_rate_on_auto": 0.35795454545454547,
+      "wrapped_error_rate_on_auto": 0.3693181818181818,
+      "automatic_residual_error_mass": 0.325,
+      "abstained_raw_error_capture": 0.08695652173913043,
+      "correction_rate_given_raw_error": 0.0,
+      "induced_error_given_raw_correct": 0.015267175572519083,
+      "override_precision": 0.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.12,
+      "label_metrics": {
+        "safe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.77,
+          "raw_error_rate_on_auto": 0.7402597402597403,
+          "wrapped_error_rate_on_auto": 0.7402597402597403,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.99,
+          "raw_error_rate_on_auto": 0.06060606060606061,
+          "wrapped_error_rate_on_auto": 0.08080808080808081,
+          "induced_error_given_raw_correct": 0.02127659574468085
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.88,
+          "ci95_low": 0.835,
+          "ci95_high": 0.925,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.12,
+          "ci95_low": 0.08,
+          "ci95_high": 0.165,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "raw_error_rate_on_auto": {
+          "n": 176.0,
+          "mean": 0.35795454545454547,
+          "ci95_low": 0.2897727272727273,
+          "ci95_high": 0.4318181818181818,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 176.0,
+          "mean": 0.3693181818181818,
+          "ci95_low": 0.29545454545454547,
+          "ci95_high": 0.4431818181818182,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.325,
+          "ci95_low": 0.26,
+          "ci95_high": 0.39,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 69.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        },
+        "induced_error_given_raw_correct": {
+          "n": 131.0,
+          "mean": 0.015267175572519083,
+          "ci95_low": 0.0,
+          "ci95_high": 0.03816793893129771,
+          "p_value_mean_gt_0": 0.2585741425857414
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 3388.0,
+        "raw_attack_error_rate": 0.529375,
+        "escalated_attacks": 1228.0,
+        "attack_escalation_rate": 0.191875,
+        "attack_error_capture_rate": 0.35182998819362454,
+        "retained_attacks": 5172.0,
+        "retained_attack_error_rate": 0.4245939675174014,
+        "residual_error_mass": 0.343125,
+        "false_escalation_given_raw_correct": 0.01195219123505976,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.03625,
+        "prediction_disagreement_rate": 0.191875,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.529375,
+            "ci95_low": 0.46202734375,
+            "ci95_high": 0.5986015625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.191875,
+            "ci95_low": 0.143578125,
+            "ci95_high": 0.24407031249999994,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 111.0,
+            "mean": 0.3691514094739901,
+            "ci95_low": 0.2860251380412671,
+            "ci95_high": 0.4567767364138332,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 181.0,
+            "mean": 0.41721301411909145,
+            "ci95_low": 0.3478397790055249,
+            "ci95_high": 0.48903621853898094,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.343125,
+            "ci95_low": 0.2826484375,
+            "ci95_high": 0.40828515624999995,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 112.0,
+            "mean": 0.05032467532467533,
+            "ci95_low": 0.01461038961038961,
+            "ci95_high": 0.09496753246753246,
+            "p_value_mean_gt_0": 0.0156984301569843
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 3388.0,
+        "raw_attack_error_rate": 0.529375,
+        "escalated_attacks": 1012.0,
+        "attack_escalation_rate": 0.158125,
+        "attack_error_capture_rate": 0.28807556080283353,
+        "retained_attacks": 5388.0,
+        "retained_attack_error_rate": 0.44766146993318484,
+        "residual_error_mass": 0.376875,
+        "false_escalation_given_raw_correct": 0.01195219123505976,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.158125,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.529375,
+            "ci95_low": 0.4584375,
+            "ci95_high": 0.5929765625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.158125,
+            "ci95_low": 0.1175,
+            "ci95_high": 0.20281640625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 111.0,
+            "mean": 0.3082679453647196,
+            "ci95_low": 0.23823016564952051,
+            "ci95_high": 0.3823071054925894,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 193.0,
+            "mean": 0.4580541162924583,
+            "ci95_low": 0.38760161197466897,
+            "ci95_high": 0.5248554979850316,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.376875,
+            "ci95_low": 0.31562109374999997,
+            "ci95_high": 0.4378203125,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 112.0,
+            "mean": 0.05032467532467533,
+            "ci95_low": 0.01461038961038961,
+            "ci95_high": 0.09496753246753246,
+            "p_value_mean_gt_0": 0.014998500149985002
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 3388.0,
+        "raw_attack_error_rate": 0.529375,
+        "escalated_attacks": 1212.0,
+        "attack_escalation_rate": 0.189375,
+        "attack_error_capture_rate": 0.34710743801652894,
+        "retained_attacks": 5188.0,
+        "retained_attack_error_rate": 0.4263685427910563,
+        "residual_error_mass": 0.345625,
+        "false_escalation_given_raw_correct": 0.01195219123505976,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.189375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.529375,
+            "ci95_low": 0.45937109374999996,
+            "ci95_high": 0.59531640625,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.189375,
+            "ci95_low": 0.1415625,
+            "ci95_high": 0.24141015624999998,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 111.0,
+            "mean": 0.3646469049694856,
+            "ci95_low": 0.2788433594885208,
+            "ci95_high": 0.45249019180470795,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 181.0,
+            "mean": 0.41721301411909145,
+            "ci95_low": 0.34538980969920197,
+            "ci95_high": 0.49189011663597293,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.345625,
+            "ci95_low": 0.281703125,
+            "ci95_high": 0.40969140624999995,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 112.0,
+            "mean": 0.05032467532467533,
+            "ci95_low": 0.01461038961038961,
+            "ci95_high": 0.09496753246753246,
+            "p_value_mean_gt_0": 0.0156984301569843
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  },
+  "WildGuard-NonPKU200": {
+    "method": "MN-SLA-Gated",
+    "scope": "Selective fail-closed mitigation diagnostic. Decisions use guard outputs and matched-neutral metadata; labels are used only for offline evaluation.",
+    "threshold": 0.5,
+    "score_shift_delta": null,
+    "neutral_aggregation": "median",
+    "n_records": 8600,
+    "n_bases": 200,
+    "role_counts": {
+      "attack": 6400,
+      "clean": 200,
+      "matched_neutral_control": 2000
+    },
+    "primary_attack_records": 6400,
+    "clean_reference_records": 200,
+    "attack_metrics": {
+      "n_primary_attacks": 6400,
+      "raw_attack_errors": 1464.0,
+      "raw_attack_error_rate": 0.22875,
+      "escalated_attacks": 223.0,
+      "attack_escalation_rate": 0.03484375,
+      "attack_error_capture_rate": 0.1448087431693989,
+      "retained_attacks": 6177.0,
+      "retained_attack_error_rate": 0.20268738870001618,
+      "residual_error_mass": 0.195625,
+      "false_escalation_given_raw_correct": 0.002228525121555916,
+      "missing_control_rate": 0.0,
+      "neutral_disagreement_rate": 0.0025,
+      "prediction_disagreement_rate": 0.03484375,
+      "score_shift_trigger_rate": 0.0,
+      "mean_controls_per_attack": 2.0,
+      "base_level_inference": {
+        "raw_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.22875,
+          "ci95_low": 0.17687109375,
+          "ci95_high": 0.28641406249999996,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.03484375,
+          "ci95_low": 0.0209375,
+          "ci95_high": 0.049847656249999976,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "attack_error_capture_rate": {
+          "n": 65.0,
+          "mean": 0.3852564102564103,
+          "ci95_low": 0.2717628205128205,
+          "ci95_high": 0.5025641025641027,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_attack_error_rate": {
+          "n": 200.0,
+          "mean": 0.1973076923076923,
+          "ci95_low": 0.1442067307692308,
+          "ci95_high": 0.2523173076923077,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.195625,
+          "ci95_low": 0.14358984375,
+          "ci95_high": 0.2537656249999999,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "false_escalation_given_raw_correct": {
+          "n": 161.0,
+          "mean": 0.0026972624798711755,
+          "ci95_low": 0.0,
+          "ci95_high": 0.006694271911663215,
+          "p_value_mean_gt_0": 0.12338766123387661
+        },
+        "missing_control_rate": {
+          "n": 200.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "clean_reference_metrics": {
+      "n_clean_reference": 200,
+      "clean_reference_escalation_rate": 0.025,
+      "clean_reference_raw_error_rate": 0.2,
+      "retained_clean_reference_error_rate": 0.19487179487179487,
+      "base_level_inference": {
+        "clean_reference_escalation_rate": {
+          "n": 200.0,
+          "mean": 0.025,
+          "ci95_low": 0.005,
+          "ci95_high": 0.05,
+          "p_value_mean_gt_0": 0.035596440355964404
+        },
+        "clean_reference_raw_error_rate": {
+          "n": 200.0,
+          "mean": 0.2,
+          "ci95_low": 0.145,
+          "ci95_high": 0.26,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "retained_clean_reference_error_rate": {
+          "n": 195.0,
+          "mean": 0.19487179487179487,
+          "ci95_low": 0.13846153846153847,
+          "ci95_high": 0.2512820512820513,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        }
+      }
+    },
+    "neutral_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 6400,
+      "auto_decision_rate": 0.9975,
+      "abstention_rate": 0.0025,
+      "override_rate_on_auto": 0.03242481203007519,
+      "raw_error_rate_on_auto": 0.22791353383458646,
+      "wrapped_error_rate_on_auto": 0.19674185463659147,
+      "automatic_residual_error_mass": 0.19625,
+      "abstained_raw_error_capture": 0.006147540983606557,
+      "correction_rate_given_raw_error": 0.13866120218579234,
+      "induced_error_given_raw_correct": 0.0008103727714748784,
+      "override_precision": 0.9806763285024155,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.0025,
+      "label_metrics": {
+        "safe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 0.9975,
+          "raw_error_rate_on_auto": 0.4332706766917293,
+          "wrapped_error_rate_on_auto": 0.37844611528822053,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 3200.0,
+          "auto_decision_rate": 0.9975,
+          "raw_error_rate_on_auto": 0.022556390977443608,
+          "wrapped_error_rate_on_auto": 0.015037593984962405,
+          "induced_error_given_raw_correct": 0.0012791813239526704
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.9975,
+          "ci95_low": 0.99375,
+          "ci95_high": 1.0,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.0025,
+          "ci95_low": 0.0,
+          "ci95_high": 0.00625,
+          "p_value_mean_gt_0": 0.25207479252074794
+        },
+        "raw_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.22880208333333335,
+          "ci95_low": 0.17566796875,
+          "ci95_high": 0.28282942708333325,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 200.0,
+          "mean": 0.1975,
+          "ci95_low": 0.14125,
+          "ci95_high": 0.255,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.19625,
+          "ci95_low": 0.1425,
+          "ci95_high": 0.25,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 65.0,
+          "mean": 0.37833333333333335,
+          "ci95_low": 0.26166666666666666,
+          "ci95_high": 0.5071794871794872,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "induced_error_given_raw_correct": {
+          "n": 161.0,
+          "mean": 0.0010869565217391304,
+          "ci95_low": 0.0,
+          "ci95_high": 0.002950310559006211,
+          "p_value_mean_gt_0": 0.2526747325267473
+        }
+      }
+    },
+    "clean_consensus_wrapper_metrics": {
+      "scope": "Offline neutral-consensus selective wrapper. Automatic decisions require unanimous matched-neutral controls; missing or non-unanimous controls abstain.",
+      "n_items": 200,
+      "auto_decision_rate": 0.98,
+      "abstention_rate": 0.02,
+      "override_rate_on_auto": 0.00510204081632653,
+      "raw_error_rate_on_auto": 0.1989795918367347,
+      "wrapped_error_rate_on_auto": 0.19387755102040816,
+      "automatic_residual_error_mass": 0.19,
+      "abstained_raw_error_capture": 0.025,
+      "correction_rate_given_raw_error": 0.025,
+      "induced_error_given_raw_correct": 0.0,
+      "override_precision": 1.0,
+      "missing_control_rate": 0.0,
+      "nonunanimous_control_rate": 0.02,
+      "label_metrics": {
+        "safe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.99,
+          "raw_error_rate_on_auto": 0.3838383838383838,
+          "wrapped_error_rate_on_auto": 0.37373737373737376,
+          "induced_error_given_raw_correct": 0.0
+        },
+        "unsafe_label": {
+          "n": 100.0,
+          "auto_decision_rate": 0.97,
+          "raw_error_rate_on_auto": 0.010309278350515464,
+          "wrapped_error_rate_on_auto": 0.010309278350515464,
+          "induced_error_given_raw_correct": 0.0
+        }
+      },
+      "base_level_inference": {
+        "auto_decision_rate": {
+          "n": 200.0,
+          "mean": 0.98,
+          "ci95_low": 0.96,
+          "ci95_high": 0.995,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "abstention_rate": {
+          "n": 200.0,
+          "mean": 0.02,
+          "ci95_low": 0.005,
+          "ci95_high": 0.04,
+          "p_value_mean_gt_0": 0.0653934606539346
+        },
+        "raw_error_rate_on_auto": {
+          "n": 196.0,
+          "mean": 0.1989795918367347,
+          "ci95_low": 0.14285714285714285,
+          "ci95_high": 0.25510204081632654,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "wrapped_error_rate_on_auto": {
+          "n": 196.0,
+          "mean": 0.19387755102040816,
+          "ci95_low": 0.1377551020408163,
+          "ci95_high": 0.25510204081632654,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "automatic_residual_error_mass": {
+          "n": 200.0,
+          "mean": 0.19,
+          "ci95_low": 0.135,
+          "ci95_high": 0.245,
+          "p_value_mean_gt_0": 9.999000099990002e-05
+        },
+        "correction_rate_given_raw_error": {
+          "n": 40.0,
+          "mean": 0.025,
+          "ci95_low": 0.0,
+          "ci95_high": 0.075,
+          "p_value_mean_gt_0": 0.49925007499250074
+        },
+        "induced_error_given_raw_correct": {
+          "n": 160.0,
+          "mean": 0.0,
+          "ci95_low": 0.0,
+          "ci95_high": 0.0,
+          "p_value_mean_gt_0": 1.0
+        }
+      }
+    },
+    "k_sensitivity": {
+      "all_controls": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1464.0,
+        "raw_attack_error_rate": 0.22875,
+        "escalated_attacks": 223.0,
+        "attack_escalation_rate": 0.03484375,
+        "attack_error_capture_rate": 0.1448087431693989,
+        "retained_attacks": 6177.0,
+        "retained_attack_error_rate": 0.20268738870001618,
+        "residual_error_mass": 0.195625,
+        "false_escalation_given_raw_correct": 0.002228525121555916,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0025,
+        "prediction_disagreement_rate": 0.03484375,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 2.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.22875,
+            "ci95_low": 0.17687109375,
+            "ci95_high": 0.28641406249999996,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.03484375,
+            "ci95_low": 0.0209375,
+            "ci95_high": 0.049847656249999976,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 65.0,
+            "mean": 0.3852564102564103,
+            "ci95_low": 0.2717628205128205,
+            "ci95_high": 0.5025641025641027,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.1973076923076923,
+            "ci95_low": 0.1442067307692308,
+            "ci95_high": 0.2523173076923077,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.195625,
+            "ci95_low": 0.14358984375,
+            "ci95_high": 0.2537656249999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 161.0,
+            "mean": 0.0026972624798711755,
+            "ci95_low": 0.0,
+            "ci95_high": 0.006694271911663215,
+            "p_value_mean_gt_0": 0.12338766123387661
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_first_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1464.0,
+        "raw_attack_error_rate": 0.22875,
+        "escalated_attacks": 208.0,
+        "attack_escalation_rate": 0.0325,
+        "attack_error_capture_rate": 0.13934426229508196,
+        "retained_attacks": 6192.0,
+        "retained_attack_error_rate": 0.20348837209302326,
+        "residual_error_mass": 0.196875,
+        "false_escalation_given_raw_correct": 0.0008103727714748784,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.0325,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.22875,
+            "ci95_low": 0.17639843749999998,
+            "ci95_high": 0.2847031249999999,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.0325,
+            "ci95_low": 0.01999609375,
+            "ci95_high": 0.04671875,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 65.0,
+            "mean": 0.38141025641025644,
+            "ci95_low": 0.2673076923076923,
+            "ci95_high": 0.4980769230769231,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.1973076923076923,
+            "ci95_low": 0.14459134615384617,
+            "ci95_high": 0.25326923076923075,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.196875,
+            "ci95_low": 0.1441953125,
+            "ci95_high": 0.251875,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 161.0,
+            "mean": 0.0010869565217391304,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0031094720496894195,
+            "p_value_mean_gt_0": 0.24587541245875413
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      },
+      "k1_second_control": {
+        "n_primary_attacks": 6400,
+        "raw_attack_errors": 1464.0,
+        "raw_attack_error_rate": 0.22875,
+        "escalated_attacks": 222.0,
+        "attack_escalation_rate": 0.0346875,
+        "attack_error_capture_rate": 0.14412568306010928,
+        "retained_attacks": 6178.0,
+        "retained_attack_error_rate": 0.20281644545160246,
+        "residual_error_mass": 0.19578125,
+        "false_escalation_given_raw_correct": 0.002228525121555916,
+        "missing_control_rate": 0.0,
+        "neutral_disagreement_rate": 0.0,
+        "prediction_disagreement_rate": 0.0346875,
+        "score_shift_trigger_rate": 0.0,
+        "mean_controls_per_attack": 1.0,
+        "base_level_inference": {
+          "raw_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.22875,
+            "ci95_low": 0.1753046875,
+            "ci95_high": 0.28203125,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_escalation_rate": {
+            "n": 200.0,
+            "mean": 0.0346875,
+            "ci95_low": 0.02140625,
+            "ci95_high": 0.05,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "attack_error_capture_rate": {
+            "n": 65.0,
+            "mean": 0.3821794871794872,
+            "ci95_low": 0.26678525641025647,
+            "ci95_high": 0.4991089743589743,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "retained_attack_error_rate": {
+            "n": 200.0,
+            "mean": 0.19754578754578755,
+            "ci95_low": 0.14483539377289378,
+            "ci95_high": 0.2502440476190476,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "residual_error_mass": {
+            "n": 200.0,
+            "mean": 0.19578125,
+            "ci95_low": 0.14296875,
+            "ci95_high": 0.2503125,
+            "p_value_mean_gt_0": 9.999000099990002e-05
+          },
+          "false_escalation_given_raw_correct": {
+            "n": 161.0,
+            "mean": 0.0026972624798711755,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0067517828387393605,
+            "p_value_mean_gt_0": 0.12438756124387561
+          },
+          "missing_control_rate": {
+            "n": 200.0,
+            "mean": 0.0,
+            "ci95_low": 0.0,
+            "ci95_high": 0.0,
+            "p_value_mean_gt_0": 1.0
+          }
+        }
+      }
+    }
+  }
+}

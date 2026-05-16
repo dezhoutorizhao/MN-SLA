@@ -1,0 +1,50 @@
+baselines:
+  - name: wildguard
+    venue: NeurIPS 2024 Datasets and Benchmarks
+    type: official_code_or_model
+    repository: https://github.com/allenai/wildguard
+    paper: https://arxiv.org/abs/2406.18495
+    required: true
+  - name: harmbench
+    venue: ICML 2024
+    type: official_code_or_model
+    repository: https://github.com/centerforaisafety/HarmBench
+    paper: https://arxiv.org/abs/2402.04249
+    required: true
+  - name: bingoguard
+    venue: ICLR 2025
+    type: official_hf_model_and_code
+    repository: https://github.com/SalesforceAIResearch/BingoGuard
+    model: fanyin3639/bingoguard-llama-8b
+    paper: https://openreview.net/forum?id=HPSAkIHRbb
+    required: true
+  - name: harmaug_guard
+    venue: ICLR 2025
+    type: official_hf_model_and_code
+    repository: https://anonymous.4open.science/r/HarmAug/
+    model: AnonHB/HarmAug_Guard_Model_deberta_v3_large_finetuned
+    paper: https://openreview.net/forum?id=y3zswp3gek
+    required: true
+  - name: calibration_guard
+    venue: ICLR 2025
+    type: mechanism_baseline
+    repository: https://github.com/Waffle-Liu/calibration_guard_model
+    paper: https://proceedings.iclr.cc/paper_files/paper/2025/hash/a99f732df9b668284b449da0214a3286-Abstract-Conference.html
+    required: true
+  - name: safetyanalyst
+    venue: ICML 2025
+    type: optional_official_system
+    paper: https://openreview.net/forum?id=WUGrleBcYP
+    required: false
+  - name: omniguard_multiguard
+    venue: EMNLP 2025 main
+    type: optional_official_code
+    repository: https://github.com/vsahil/OmniGuard
+    paper: https://aclanthology.org/2025.emnlp-main.819/
+    required: false
+  - name: mrguard
+    venue: EMNLP 2025 main
+    type: optional_model_or_reimplementation
+    paper: https://aclanthology.org/2025.emnlp-main.1392.pdf
+    required: false
+

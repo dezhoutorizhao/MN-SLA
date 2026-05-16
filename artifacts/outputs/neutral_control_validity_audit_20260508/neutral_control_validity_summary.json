@@ -1,0 +1,143 @@
+{
+  "claim_safety": {
+    "artifact_type": "neutral_control_validity_audit",
+    "scope": "mechanical and behavioral sanity checks over existing MN-SLA artifacts",
+    "not_a_claim": "This is not blinded human semantic validation, not a new method gate, and not evidence for deployable robustness.",
+    "raw_text_emitted": false
+  },
+  "audit_passed": true,
+  "summary": {
+    "attack_cells": 1800,
+    "attack_records": 14400,
+    "bases": 450,
+    "clean_records": 450,
+    "clean_reference_failures": 0,
+    "metadata_mismatches": 0,
+    "missing_neutral_cells": 0,
+    "neutral_cue_failures": 0,
+    "neutral_records": 4500,
+    "neutral_role_failures": 0,
+    "records": 19350
+  },
+  "datasets": [
+    {
+      "dataset": "non_pku200_source_pair",
+      "counts": {
+        "bases": 200,
+        "records": 8600,
+        "clean_records": 200,
+        "attack_records": 6400,
+        "neutral_records": 2000,
+        "attack_cells": 800,
+        "clean_reference_failures": 0,
+        "missing_neutral_cells": 0,
+        "metadata_mismatches": 0,
+        "neutral_role_failures": 0,
+        "neutral_cue_failures": 0
+      },
+      "clean_reference_failures": [],
+      "missing_neutral_cells": [],
+      "metadata_mismatches": [],
+      "neutral_role_failures": [],
+      "neutral_cue_failures": []
+    },
+    {
+      "dataset": "pku200_scale",
+      "counts": {
+        "bases": 200,
+        "records": 8600,
+        "clean_records": 200,
+        "attack_records": 6400,
+        "neutral_records": 2000,
+        "attack_cells": 800,
+        "clean_reference_failures": 0,
+        "missing_neutral_cells": 0,
+        "metadata_mismatches": 0,
+        "neutral_role_failures": 0,
+        "neutral_cue_failures": 0
+      },
+      "clean_reference_failures": [],
+      "missing_neutral_cells": [],
+      "metadata_mismatches": [],
+      "neutral_role_failures": [],
+      "neutral_cue_failures": []
+    },
+    {
+      "dataset": "pku50_main_gate",
+      "counts": {
+        "bases": 50,
+        "records": 2150,
+        "clean_records": 50,
+        "attack_records": 1600,
+        "neutral_records": 500,
+        "attack_cells": 200,
+        "clean_reference_failures": 0,
+        "missing_neutral_cells": 0,
+        "metadata_mismatches": 0,
+        "neutral_role_failures": 0,
+        "neutral_cue_failures": 0
+      },
+      "clean_reference_failures": [],
+      "missing_neutral_cells": [],
+      "metadata_mismatches": [],
+      "neutral_role_failures": [],
+      "neutral_cue_failures": []
+    }
+  ],
+  "behavior_sanity": [
+    {
+      "run": "dynaguard_non_pku200",
+      "clean_predictions": 200,
+      "neutral_predictions": 2000,
+      "clean_error_rate": 0.345,
+      "neutral_error_rate": 0.3665,
+      "neutral_minus_clean_error_rate": 0.02150000000000002,
+      "mean_abs_neutral_minus_clean_score": 0.0505
+    },
+    {
+      "run": "dynaguard_pku200",
+      "clean_predictions": 200,
+      "neutral_predictions": 1999,
+      "clean_error_rate": 0.17,
+      "neutral_error_rate": 0.17658829414707353,
+      "neutral_minus_clean_error_rate": 0.006588294147073515,
+      "mean_abs_neutral_minus_clean_score": 0.0415207603801901
+    },
+    {
+      "run": "dynaguard_pku50",
+      "clean_predictions": 50,
+      "neutral_predictions": 500,
+      "clean_error_rate": 0.14,
+      "neutral_error_rate": 0.154,
+      "neutral_minus_clean_error_rate": 0.013999999999999985,
+      "mean_abs_neutral_minus_clean_score": 0.054
+    },
+    {
+      "run": "wildguard_non_pku200",
+      "clean_predictions": 200,
+      "neutral_predictions": 2000,
+      "clean_error_rate": 0.2,
+      "neutral_error_rate": 0.197,
+      "neutral_minus_clean_error_rate": -0.0030000000000000027,
+      "mean_abs_neutral_minus_clean_score": 0.008
+    },
+    {
+      "run": "wildguard_pku200",
+      "clean_predictions": 200,
+      "neutral_predictions": 2000,
+      "clean_error_rate": 0.235,
+      "neutral_error_rate": 0.216,
+      "neutral_minus_clean_error_rate": -0.01899999999999999,
+      "mean_abs_neutral_minus_clean_score": 0.022
+    },
+    {
+      "run": "wildguard_pku50",
+      "clean_predictions": 50,
+      "neutral_predictions": 500,
+      "clean_error_rate": 0.16,
+      "neutral_error_rate": 0.146,
+      "neutral_minus_clean_error_rate": -0.014000000000000012,
+      "mean_abs_neutral_minus_clean_score": 0.026
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local datasets, model caches, third-party checkouts, and generated outputs.
+# Public aggregate artifacts are copied into artifacts/.
+/data/
+/outputs/
+/third_party/
+/models/
+/.hf_cache/
+/.tools/
+
+# Local-only annotation packets and secrets must never be published.
+*.SENSITIVE_LOCAL_ONLY.*
+*private*
+*annotator*
+auth.json
+config.toml
+*.key
+*.pem
+
+# Internal recovery logs may contain local paths, server details, or credential
+# fingerprints and are not part of the public artifact package.
+docs/MEMORY_RECOVERY_*
+docs/RECOVERY_*
+docs/CODEX_MCP_STATUS.md
+docs/REMOTE_RUNBOOK_*
+docs/MANIFEST_*
+
+# Build products and caches.
+*.log
+*.aux
+*.bbl
+*.blg
+*.out
+*.fls
+*.fdb_latexmk

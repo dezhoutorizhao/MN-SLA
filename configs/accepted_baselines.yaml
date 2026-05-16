@@ -1,0 +1,73 @@
+strict_accepted_baselines:
+  - name: dynaguard
+    paper: "DynaGuard: A Dynamic Guardian Model With User-Defined Policies"
+    venue: "ICLR 2026 Poster"
+    accepted: true
+    priority: 1
+    role: "latest dynamic-policy guard baseline closest to user-defined policy stress"
+    repository: "https://github.com/montehoover/DynaGuard"
+    checkpoints:
+      - "tomg-group-umd/DynaGuard-1.7B"
+      - "tomg-group-umd/DynaGuard-4B"
+      - "tomg-group-umd/DynaGuard-8B"
+    first_run: "hard_v3_contract_subset"
+    score_kind: "generated_label_or_text_parse"
+
+  - name: bingoguard
+    paper: "BingoGuard: LLM Content Moderation Tools with Risk Levels"
+    venue: "ICLR 2025 Poster"
+    accepted: true
+    priority: 2
+    role: "strong 2025 moderation baseline with risk-level framing"
+    repository: "https://github.com/SalesforceAIResearch/BingoGuard"
+    local_path: "third_party/BingoGuard"
+    checkpoint: "fanyin3639/bingoguard-llama-8b"
+    first_run: "hard_v3_contract_subset"
+    score_kind: "binary_label_and_optional_severity"
+
+  - name: wildguard
+    paper: "WildGuard: Open One-stop Moderation Tools for Safety Risks, Jailbreaks, and Refusals of LLMs"
+    venue: "NeurIPS 2024 Datasets and Benchmarks"
+    accepted: true
+    priority: 3
+    role: "standard open moderation baseline with existing local adapter"
+    repository: "https://github.com/allenai/wildguard"
+    local_path: "third_party/wildguard"
+    first_run: "30_record_adapter_contract_then_hard_v3_contract_subset"
+    score_kind: "hard_label"
+
+  - name: harmaug_guard
+    paper: "HarmAug: Effective Data Augmentation for Knowledge Distillation of Safety Guard Models"
+    venue: "ICLR 2025 Poster"
+    accepted: true
+    priority: 4
+    role: "efficient small guard baseline"
+    repository: "https://github.com/haebin-seong/HarmAug"
+    local_path: "third_party/HarmAug"
+    checkpoint: "AnonHB/HarmAug_Guard_Model_deberta_v3_large_finetuned"
+    first_run: "hard_v3_contract_subset"
+    score_kind: "probability_if_classifier_available"
+
+  - name: harmbench
+    paper: "HarmBench: A Standardized Evaluation Framework for Automated Red Teaming and Robust Refusal"
+    venue: "ICML 2024"
+    accepted: true
+    priority: 5
+    role: "standard safety classifier/framework reference"
+    repository: "https://github.com/centerforaisafety/HarmBench"
+    local_path: "third_party/HarmBench"
+    first_run: "hard_v3_contract_subset"
+    score_kind: "classifier_label_or_probability"
+
+audition_only:
+  - name: r2_guard
+    paper: "R2-Guard: Robust Reasoning Enabled LLM Guardrail via Knowledge-Enhanced Logical Reasoning"
+    venue: "ICLR 2025 Spotlight"
+    accepted: true
+    reason: "High scientific value, but runnable checkpoint and adapter path must be proven before main-table use."
+
+excluded_from_first_main_table:
+  - name: safetyanalyst
+    venue: "ICML 2025 Poster"
+    accepted: true
+    reason: "Accepted, but it is less direct as a first-pass guard classifier baseline."

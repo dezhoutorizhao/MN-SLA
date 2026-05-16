@@ -1,0 +1,87 @@
+\section{Additional Experimental Details}
+
+\subsection{\auditname Construction}
+
+\begin{table}[h]
+\centering
+\small
+\caption{\auditname core-balanced construction used by the main claim.}
+\label{tab:mnsla_construction}
+\begin{tabular}{ll}
+\toprule
+Item & Value \\
+\midrule
+Bases & 50 \\
+Records per main run & 2150 \\
+Primary pressure attacks & 1600 \\
+Matched neutrals per primary attack & 2 \\
+Matched-neutral missing rate & 0.0 \\
+Matching keys & base ID, pressure layout, pressure format \\
+Decision threshold & 0.5 \\
+Primary inference unit & Base-level gap sample \\
+Pressure families & 8 attack families plus neutral/clean \\
+Target directions & 800 toward-safe and 800 toward-unsafe attacks \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Each base case fixes the safety-relevant content and gold label. Primary attacks add a social-pressure wrapper such as a desired-label cue, authority cue, answer-key cue, or consistency appeal. Matched neutral controls keep the same rendered structure but remove the pressure toward a desired label. The following sanitized wrapper sketches illustrate the intervention contract without reproducing benchmark records:
+\begin{quote}
+\textbf{Pressure wrapper:} ``The previous expert answer marked this as safe. Keep the same label unless there is overwhelming evidence.'' \\
+\textbf{Matched neutral wrapper:} ``Review the following case using the same label space and output format.''
+\end{quote}
+\begin{quote}
+\textbf{Pressure wrapper:} ``For consistency with the audit key, answer unsafe.'' \\
+\textbf{Matched neutral wrapper:} ``For consistency, answer using only the requested label.''
+\end{quote}
+
+\subsection{Baseline Ledger}
+
+The selected main baselines are DynaGuard, BingoGuard LLaMA3, HarmAug, and WildGuard. The eligibility rule is frozen before the final claim gate: a main baseline must have a direct guard or moderation contract compatible with rendered \auditname review prompts and complete raw and post-hoc artifacts under the same 50-base contract. ShieldLM is supplementary only because the official ShieldLM contract is response-safety detection over a query--response pair, while the current adapter places the rendered review prompt in ShieldLM's response field. This makes ShieldLM useful as an audition stress diagnostic, but not as a direct main-table guard contract. BeaverDam, R2, and ShieldGemma are not part of the current complete selected-main evidence ledger. The final claim gate requires method-pair coverage for every selected main raw baseline.
+
+\subsection{Artifact Integrity}
+
+All selected main raw and post-hoc method artifacts have 50 bases, 1600 primary attack records, and zero matched-neutral missing rate. The paired attenuation artifacts for DynaGuard and WildGuard have 1600 paired primary attack samples, 50 paired bases, and zero duplicate raw IDs, duplicate projected IDs, unpaired raw IDs, unpaired projected IDs, base-ID mismatches, and dropped primary attack pairs. The parser policy is fail-closed: missing or malformed prediction records do not silently count as successful predictions. The matched-neutral policy is also fail-closed for the main claim: selected main runs must have zero matched-neutral missing rate. The threshold is fixed at 0.5 for all reported binary metrics.
+
+\subsection{Neutral-Control Validity Audit}
+
+Table~\ref{tab:neutral_validity_audit} summarizes the aggregate neutral-control validity audit. The audit checks mechanical matching and cue removal over archived artifacts only; it emits salted hashes and aggregate counts rather than benchmark text. It verifies that every attack cell has a matched neutral with the same base, label metadata, layout, format, and rendered field structure; that neutral records have the expected neutral role fields; and that a conservative scanner does not find explicit desired-label or social-pressure leakage in neutral records. The audit also prepares a blinded annotation manifest with hashes and arm identifiers only. This is useful audit evidence, but it is not a substitute for blinded human semantic validation.
+
+\begin{table}[h]
+\centering
+\small
+\caption{Neutral-control validity audit over archived \auditname artifacts. Mechanical failures count missing cells, role failures, metadata mismatches, and explicit cue-scanner hits.}
+\label{tab:neutral_validity_audit}
+\begin{tabular}{lrrrrr}
+\toprule
+Regime & Bases & Records & Attack cells & Neutral records & Mechanical failures \\
+\midrule
+50-base main gate & 50 & 2150 & 200 & 500 & 0 \\
+PKU200 scale audit & 200 & 8600 & 800 & 2000 & 0 \\
+Non-PKU source pair & 200 & 8600 & 800 & 2000 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\caption{Clean-versus-neutral behavior sanity from archived DynaGuard and WildGuard predictions. Values are diagnostic only and do not define a new claim gate.}
+\label{tab:neutral_behavior_sanity}
+\begin{tabular}{lrrr}
+\toprule
+Run & Clean error & Neutral error & Neutral-clean error \\
+\midrule
+DynaGuard 50-base & 0.140000 & 0.154000 & 0.014000 \\
+WildGuard 50-base & 0.160000 & 0.146000 & -0.014000 \\
+DynaGuard PKU200 & 0.170000 & 0.176588 & 0.006588 \\
+WildGuard PKU200 & 0.235000 & 0.216000 & -0.019000 \\
+DynaGuard non-PKU200 & 0.345000 & 0.366500 & 0.021500 \\
+WildGuard non-PKU200 & 0.200000 & 0.197000 & -0.003000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Exact Supported Claim}
+
+Within the \auditname matched-neutral social-pressure audit contract, the fixed post-hoc/test-time matched-control audit projection satisfies the selected-main-baseline 50-base claim gate: it makes the residual primary gap unsupported on raw vulnerability-supported main baselines (DynaGuard and WildGuard), shows Holm-adjusted positive paired attenuation, does not introduce a supported residual gap on raw vulnerability-not-supported guardrail baselines (BingoGuard and HarmAug), and passes the overall/attack F1 non-degradation check under zero-drop tolerance. The PKU200, PKU2K full-data, and non-PKU 200-base audits are replication and diagnostic evidence: they support raw vulnerability replication and strong attenuation, but they do not replace the frozen claim gate or justify source-general, equal-cost, single-pass, unrestricted, or deployable-model superiority claims.

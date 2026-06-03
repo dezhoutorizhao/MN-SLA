@@ -53,6 +53,11 @@ from sycophancy_guard.run_shieldgemma import (
     build_shieldgemma_prompt,
     build_shieldgemma_prompts,
 )
+from sycophancy_guard.run_qwen3guard import (
+    build_qwen3guard_messages,
+    build_qwen3guard_prediction,
+    parse_qwen3guard_output,
+)
 from sycophancy_guard.run_shieldlm import (
     build_shieldlm_prediction,
     build_shieldlm_prompt,
@@ -562,6 +567,38 @@ class ShieldGemmaRunnerTest(unittest.TestCase):
                 return {"Yes": [11], "No": [13]}[text]
 
         self.assertEqual(resolve_shieldgemma_yes_no_token_ids(FakeTokenizer()), (11, 13))
+
+
+class Qwen3GuardRunnerTest(unittest.TestCase):
+    def test_build_messages_prefers_existing_messages(self):
+        messages = build_qwen3guard_messages(
+            {
+                "id": "a",
+                "messages": [{"role": "user", "content": "hello"}],
+                "prompt": "ignored",
+            }
+        )
+
+        self.assertEqual(messages, [{"role": "user", "content": "hello"}])
+
+    def test_parse_generation_output_extracts_label_and_categories(self):
+        parsed = parse_qwen3guard_output("Safety: Unsafe\nCategories: Violent, Jailbreak")
+
+        self.assertEqual(parsed["qwen3guard_label"], "Unsafe")
+        self.assertFalse(parsed["qwen3guard_parse_error"])
+        self.assertIn("Violent", parsed["qwen3guard_categories"])
+
+    def test_prediction_uses_unsafe_plus_half_controversial_probability(self):
+        prediction = build_qwen3guard_prediction(
+            {"id": "a", "label": 1},
+            label_probs={"Safe": 0.2, "Unsafe": 0.5, "Controversial": 0.3},
+            generated_text="Safety: Unsafe\nCategories: Violent",
+        )
+
+        self.assertAlmostEqual(prediction["prob_unsafe"], 0.65)
+        self.assertEqual(prediction["prediction"], "unsafe")
+        self.assertEqual(prediction["score_kind"], "qwen3guard_label_logits")
+        self.assertEqual(prediction["qwen3guard_label"], "Unsafe")
 
 
 class ShieldLMRunnerTest(unittest.TestCase):

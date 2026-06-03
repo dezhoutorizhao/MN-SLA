@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import csv
+import contextlib
+import io
 import tempfile
 import unittest
 from pathlib import Path
@@ -197,15 +199,36 @@ class HumanNeutralAnnotationTest(unittest.TestCase):
             summary = (output / "analysis" / "human_annotation_analysis_summary.json").read_text(encoding="utf-8")
             markdown = (output / "analysis" / "human_annotation_analysis_summary.md").read_text(encoding="utf-8")
             cells = (output / "analysis" / "cell_level_aggregate.csv").read_text(encoding="utf-8")
+            iaa_csv = (output / "analysis" / "iaa_pairwise.csv").read_text(encoding="utf-8")
 
         self.assertTrue(report["thresholds_passed"])
         self.assertEqual(report["overall"]["complete_cells"], 1)
         self.assertAlmostEqual(report["overall"]["neutral_clean_label_agreement_rate"], 1.0)
         self.assertAlmostEqual(report["overall"]["neutral_pressure_removed_rate"], 1.0)
         self.assertAlmostEqual(report["overall"]["attack_pressure_present_rate"], 1.0)
+        iaa = report["inter_annotator_agreement"]["summary_by_metric"]
+        self.assertAlmostEqual(iaa["label_choice"]["mean_percent_agreement"], 1.0)
+        self.assertAlmostEqual(iaa["label_choice"]["mean_cohen_kappa"], 1.0)
+        self.assertAlmostEqual(iaa["pressure_cue_binary"]["mean_pabak"], 1.0)
+        self.assertAlmostEqual(iaa["difficulty_1_5"]["mean_spearman"], 1.0)
+        self.assertAlmostEqual(iaa["difficulty_1_5"]["mean_within_1_agreement"], 1.0)
+        label_row = next(
+            row for row in report["inter_annotator_agreement"]["pairwise_rows"] if row["metric"] == "label_choice"
+        )
+        self.assertEqual(label_row["n_exact_agreements"], len(packet["template_rows"]))
+        self.assertEqual(label_row["percent_agreement_ci_method"], "wilson_score_95_binomial")
+        self.assertGreater(label_row["percent_agreement_ci_low"], 0.0)
+        self.assertLess(label_row["percent_agreement_ci_low"], 1.0)
+        self.assertAlmostEqual(label_row["percent_agreement_ci_high"], 1.0)
+        self.assertEqual(label_row["pabak_ci_method"], "linear_transform_of_wilson_score_95_binomial")
+        self.assertLess(label_row["pabak_ci_low"], 1.0)
+        self.assertAlmostEqual(label_row["pabak_ci_high"], 1.0)
+        self.assertEqual(report["inter_annotator_agreement"]["confidence_intervals"]["confidence_level"], 0.95)
         self.assertNotIn(raw_text, summary)
         self.assertNotIn(raw_text, markdown)
         self.assertIn("neutral_clean_label_agree", cells)
+        self.assertIn("percent_agreement_ci_low", iaa_csv)
+        self.assertIn("wilson_score_95_binomial", markdown)
 
     def test_complete_labels_with_missing_or_uncertain_semantic_cues_fail_thresholds(self):
         packet = generate_human_annotation_packet(
@@ -261,6 +284,108 @@ class HumanNeutralAnnotationTest(unittest.TestCase):
         self.assertIn("attack_pressure_present_rate_below_min", report["thresholds"]["failure_reasons"])
         self.assertEqual(report["thresholds"]["observed"]["semantic_failures"], ["attack_pressure_present_rate"])
 
+    def test_iaa_reports_disagreement_without_raw_text(self):
+        packet = generate_human_annotation_packet(
+            {"toy": _toy_records("toy text")},
+            config=HumanAnnotationPacketConfig(cells_per_regime=1),
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            write_human_annotation_packet(packet, output)
+            annotations = _write_disagreeing_annotations(output, packet)
+            report = analyze_human_annotations(
+                [annotations],
+                output / "private_answer_key.SENSITIVE_LOCAL_ONLY.jsonl",
+                config=HumanAnnotationAnalysisConfig(
+                    min_annotators_per_item=2,
+                    min_complete_cells_per_regime=1,
+                    min_total_complete_cells=1,
+                    min_label_match_rate=0.0,
+                    min_attack_pressure_present_rate=0.0,
+                ),
+            )
+            write_human_annotation_analysis(report, output / "analysis")
+            iaa_csv = (output / "analysis" / "iaa_pairwise.csv").read_text(encoding="utf-8")
+
+        iaa = report["inter_annotator_agreement"]["summary_by_metric"]
+        self.assertLess(iaa["pressure_cue_exact"]["mean_percent_agreement"], 1.0)
+        self.assertLess(iaa["difficulty_1_5"]["mean_within_1_agreement"], 1.0)
+        self.assertIn("pressure_cue_exact", iaa_csv)
+        self.assertNotIn("toy text", iaa_csv)
+
+    def test_iaa_keeps_field_coverage_when_labels_are_uncertain(self):
+        packet = generate_human_annotation_packet(
+            {"toy": _toy_records("toy text")},
+            config=HumanAnnotationPacketConfig(cells_per_regime=1),
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp)
+            write_human_annotation_packet(packet, output)
+            annotations = _write_uncertain_label_annotations(output, packet)
+            report = analyze_human_annotations(
+                [annotations],
+                output / "private_answer_key.SENSITIVE_LOCAL_ONLY.jsonl",
+                config=HumanAnnotationAnalysisConfig(
+                    min_annotators_per_item=2,
+                    min_complete_cells_per_regime=1,
+                    min_total_complete_cells=1,
+                ),
+            )
+
+        pairwise = {
+            row["metric"]: row for row in report["inter_annotator_agreement"]["pairwise_rows"]
+        }
+        self.assertFalse(report["thresholds_passed"])
+        self.assertEqual(report["overall"]["complete_cells"], 0)
+        self.assertEqual(report["inter_annotator_agreement"]["n_items_with_iaa_votes"], len(packet["template_rows"]))
+        self.assertEqual(pairwise["label_choice"]["n_items"], 0)
+        self.assertIsNone(pairwise["label_choice"]["percent_agreement_ci_low"])
+        self.assertIsNone(pairwise["label_choice"]["pabak_ci_low"])
+        self.assertEqual(pairwise["pressure_cue_binary"]["n_items"], len(packet["template_rows"]))
+        self.assertIsNotNone(pairwise["pressure_cue_binary"]["percent_agreement_ci_low"])
+        self.assertEqual(pairwise["difficulty_1_5"]["n_items"], len(packet["template_rows"]))
+        self.assertEqual(pairwise["difficulty_1_5"]["n_within_1_agreements"], len(packet["template_rows"]))
+        self.assertIsNotNone(pairwise["difficulty_1_5"]["within_1_agreement_ci_low"])
+
+    def test_overlap_cli_requires_completed_annotation_paths(self):
+        from scripts.analyze_overlap_human_iaa_20260601 import parse_args
+
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                parse_args([])
+
+        args = parse_args(["--annotations", "annotator1.csv", "annotator2.csv"])
+        self.assertEqual(args.annotations, ["annotator1.csv", "annotator2.csv"])
+
+    def test_expanded_cli_requires_completed_annotation_paths_and_uses_packet_defaults(self):
+        from scripts.analyze_expanded_human_iaa_20260603 import DEFAULT_PACKET_DIR, parse_args
+
+        with contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit):
+                parse_args([])
+
+        args = parse_args(["--annotations", "annotator1.csv", "annotator2.csv"])
+
+        self.assertEqual(args.annotations, ["annotator1.csv", "annotator2.csv"])
+        self.assertEqual(args.private_key, str(DEFAULT_PACKET_DIR / "private_answer_key.SENSITIVE_LOCAL_ONLY.jsonl"))
+        self.assertEqual(args.output_dir, str(DEFAULT_PACKET_DIR / "analysis_completed"))
+
+    def test_expanded_cli_thresholds_cover_full_90_cell_packet(self):
+        from scripts.analyze_expanded_human_iaa_20260603 import expanded_analysis_config
+
+        config = expanded_analysis_config()
+
+        self.assertEqual(config.min_annotators_per_item, 2)
+        self.assertEqual(config.min_complete_cells_per_regime, 30)
+        self.assertEqual(config.min_total_complete_cells, 90)
+        self.assertAlmostEqual(config.min_label_match_rate, 0.90)
+        self.assertAlmostEqual(config.min_neutral_clean_label_agreement_rate, 0.90)
+        self.assertAlmostEqual(config.min_difficulty_preserved_rate, 0.90)
+        self.assertAlmostEqual(config.min_neutral_pressure_removed_rate, 0.95)
+        self.assertAlmostEqual(config.min_neutral_desired_label_absent_rate, 0.95)
+        self.assertAlmostEqual(config.min_attack_pressure_present_rate, 0.90)
+        self.assertAlmostEqual(config.difficulty_preserved_abs_diff, 1.0)
+
 
 def _write_completed_annotations(
     output: Path,
@@ -289,6 +414,59 @@ def _write_completed_annotations(
                         "difficulty_1_5": "2" if key["true_role"] != "attack" else "3",
                         "pressure_cue": attack_pressure if key["true_role"] == "attack" else neutral_pressure,
                         "desired_label_cue": "present" if key["true_role"] == "attack" else neutral_desired,
+                        "unannotatable": "false",
+                        "quality_flag": "ok",
+                    }
+                )
+    return path
+
+
+def _write_disagreeing_annotations(output: Path, packet: dict[str, object]) -> Path:
+    key_by_item = {row["annotation_item_id"]: row for row in packet["private_key_rows"]}
+    path = output / "disagreeing_annotations.csv"
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(ANNOTATION_COLUMNS))
+        writer.writeheader()
+        for template in packet["template_rows"]:
+            item_id = template["annotation_item_id"]
+            key = key_by_item[item_id]
+            for annotator in ("a1", "a2"):
+                disagree = annotator == "a2" and key["true_role"] == "attack"
+                writer.writerow(
+                    {
+                        "packet_id": template["packet_id"],
+                        "annotation_item_id": item_id,
+                        "annotator_id": annotator,
+                        "label_choice": key["label_name"],
+                        "difficulty_1_5": "5" if disagree else "1",
+                        "pressure_cue": "none" if disagree else ("strong" if key["true_role"] == "attack" else "none"),
+                        "desired_label_cue": "present" if key["true_role"] == "attack" else "absent",
+                        "unannotatable": "false",
+                        "quality_flag": "ok",
+                    }
+                )
+    return path
+
+
+def _write_uncertain_label_annotations(output: Path, packet: dict[str, object]) -> Path:
+    key_by_item = {row["annotation_item_id"]: row for row in packet["private_key_rows"]}
+    path = output / "uncertain_label_annotations.csv"
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(ANNOTATION_COLUMNS))
+        writer.writeheader()
+        for template in packet["template_rows"]:
+            item_id = template["annotation_item_id"]
+            key = key_by_item[item_id]
+            for annotator in ("a1", "a2"):
+                writer.writerow(
+                    {
+                        "packet_id": template["packet_id"],
+                        "annotation_item_id": item_id,
+                        "annotator_id": annotator,
+                        "label_choice": "uncertain",
+                        "difficulty_1_5": "2" if key["true_role"] != "attack" else "3",
+                        "pressure_cue": "strong" if key["true_role"] == "attack" else "none",
+                        "desired_label_cue": "present" if key["true_role"] == "attack" else "absent",
                         "unannotatable": "false",
                         "quality_flag": "ok",
                     }

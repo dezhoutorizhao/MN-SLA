@@ -73,6 +73,10 @@ PRESSURE_REMOVED = {"none", "weak", "absent", "no", "false", "0"}
 DESIRED_PRESENT = {"present", "yes", "true", "1"}
 DESIRED_ABSENT = {"absent", "none", "no", "false", "0"}
 QUALITY_EXCLUDE = {"bad", "exclude", "excluded", "invalid", "fail", "failed"}
+IAA_CI_CONFIDENCE_LEVEL = 0.95
+IAA_WILSON_Z_95 = 1.959963984540054
+IAA_BINOMIAL_CI_METHOD = "wilson_score_95_binomial"
+IAA_PABAK_CI_METHOD = "linear_transform_of_wilson_score_95_binomial"
 
 
 @dataclass(frozen=True)
@@ -211,12 +215,14 @@ def analyze_human_annotations(
     _reject_raw_text_fields(annotations, "annotation input")
 
     joined = _join_annotations(annotations, key_by_item)
-    usable = [row for row in joined if _is_usable(row)]
-    _reject_duplicate_annotation_votes(usable)
+    iaa_usable = [row for row in joined if _is_iaa_usable(row)]
+    _reject_duplicate_annotation_votes(iaa_usable)
+    usable = [row for row in iaa_usable if _has_usable_label(row)]
     item_summary = _item_summary(usable, key_by_item)
     cell_summary = _cell_summary(item_summary, key_rows, config)
     threshold_report = _threshold_report(item_summary, cell_summary, key_rows, config)
     overall = _overall_summary(item_summary, cell_summary)
+    iaa = _inter_annotator_agreement(iaa_usable)
     return {
         "claim_safety": {
             "artifact_type": "human_neutral_annotation_analysis",
@@ -230,6 +236,7 @@ def analyze_human_annotations(
         "thresholds": threshold_report,
         "overall": overall,
         "by_regime": _by_regime(cell_summary),
+        "inter_annotator_agreement": iaa,
         "item_rows": list(item_summary.values()),
         "cell_rows": list(cell_summary.values()),
     }
@@ -248,6 +255,11 @@ def write_human_annotation_analysis(report: dict[str, Any], output_dir: str | Pa
     (output / "human_annotation_analysis_summary.md").write_text(_analysis_markdown(report), encoding="utf-8")
     _write_csv(output / "item_level_aggregate.csv", report["item_rows"], _item_fields())
     _write_csv(output / "cell_level_aggregate.csv", report["cell_rows"], _cell_fields())
+    _write_csv(
+        output / "iaa_pairwise.csv",
+        report["inter_annotator_agreement"]["pairwise_rows"],
+        _iaa_pairwise_fields(),
+    )
     (output / "fail_closed_report.json").write_text(
         json.dumps(_json_safe(report["thresholds"]), indent=2, ensure_ascii=False, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -662,8 +674,117 @@ def _by_regime(cells: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
     return rows
 
 
+def _inter_annotator_agreement(usable: list[dict[str, Any]]) -> dict[str, Any]:
+    by_item: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    annotators: set[str] = set()
+    for row in usable:
+        annotation = row["annotation"]
+        annotator = str(annotation.get("annotator_id") or "").strip()
+        item_id = str(annotation.get("annotation_item_id") or "").strip()
+        if not annotator or not item_id:
+            continue
+        by_item[item_id].append(row)
+        annotators.add(annotator)
+
+    pairwise_rows: list[dict[str, Any]] = []
+    pairs = _annotator_pairs(sorted(annotators))
+    categorical_specs = (
+        ("label_choice", _normalized_label, True),
+        ("pressure_cue_exact", _pressure_cue_exact, False),
+        ("pressure_cue_binary", _pressure_cue_binary_label, True),
+        ("desired_label_cue", _desired_label_cue_label, True),
+    )
+    for left, right in pairs:
+        for field, parser, include_pabak in categorical_specs:
+            values = _paired_annotation_values(by_item, left, right, parser)
+            n_exact = _exact_agreement_count(values)
+            agreement_ci_low, agreement_ci_high = _wilson_score_interval(n_exact, len(values))
+            pabak_ci_low, pabak_ci_high = (
+                _pabak_ci_from_agreement_ci(agreement_ci_low, agreement_ci_high)
+                if include_pabak
+                else (None, None)
+            )
+            pairwise_rows.append(
+                {
+                    "metric": field,
+                    "annotator_a": left,
+                    "annotator_b": right,
+                    "n_items": len(values),
+                    "n_exact_agreements": n_exact,
+                    "percent_agreement": _percent_agreement(values),
+                    "percent_agreement_ci_low": agreement_ci_low,
+                    "percent_agreement_ci_high": agreement_ci_high,
+                    "percent_agreement_ci_method": IAA_BINOMIAL_CI_METHOD if values else None,
+                    "cohen_kappa": _cohen_kappa(values),
+                    "pabak": _pabak(values) if include_pabak else None,
+                    "pabak_ci_low": pabak_ci_low,
+                    "pabak_ci_high": pabak_ci_high,
+                    "pabak_ci_method": IAA_PABAK_CI_METHOD if pabak_ci_low is not None else None,
+                    "spearman": None,
+                    "n_within_1_agreements": None,
+                    "within_1_agreement": None,
+                    "within_1_agreement_ci_low": None,
+                    "within_1_agreement_ci_high": None,
+                    "within_1_agreement_ci_method": None,
+                }
+            )
+        difficulty_values = _paired_annotation_values(by_item, left, right, lambda value: _difficulty(value))
+        n_exact = _exact_agreement_count(difficulty_values)
+        agreement_ci_low, agreement_ci_high = _wilson_score_interval(n_exact, len(difficulty_values))
+        n_within_1 = _within_one_agreement_count(difficulty_values)
+        within_1_ci_low, within_1_ci_high = _wilson_score_interval(n_within_1, len(difficulty_values))
+        pairwise_rows.append(
+            {
+                "metric": "difficulty_1_5",
+                "annotator_a": left,
+                "annotator_b": right,
+                "n_items": len(difficulty_values),
+                "n_exact_agreements": n_exact,
+                "percent_agreement": _percent_agreement(difficulty_values),
+                "percent_agreement_ci_low": agreement_ci_low,
+                "percent_agreement_ci_high": agreement_ci_high,
+                "percent_agreement_ci_method": IAA_BINOMIAL_CI_METHOD if difficulty_values else None,
+                "cohen_kappa": None,
+                "pabak": None,
+                "pabak_ci_low": None,
+                "pabak_ci_high": None,
+                "pabak_ci_method": None,
+                "spearman": _spearman(difficulty_values),
+                "n_within_1_agreements": n_within_1,
+                "within_1_agreement": _within_one_agreement(difficulty_values),
+                "within_1_agreement_ci_low": within_1_ci_low,
+                "within_1_agreement_ci_high": within_1_ci_high,
+                "within_1_agreement_ci_method": IAA_BINOMIAL_CI_METHOD if difficulty_values else None,
+            }
+        )
+
+    return {
+        "n_annotators": len(annotators),
+        "annotators": sorted(annotators),
+        "n_items_with_iaa_votes": len(by_item),
+        "n_items_with_usable_votes": len(by_item),
+        "pairwise_rows": pairwise_rows,
+        "summary_by_metric": _iaa_summary_by_metric(pairwise_rows),
+        "confidence_intervals": {
+            "confidence_level": IAA_CI_CONFIDENCE_LEVEL,
+            "binomial_method": IAA_BINOMIAL_CI_METHOD,
+            "pabak_method": IAA_PABAK_CI_METHOD,
+            "claim_boundary": (
+                "Wilson CIs are emitted only for binomial agreement rates. PABAK CIs are a linear "
+                "transform of the percent-agreement Wilson interval. No simplified CI is emitted "
+                "for Cohen's kappa, Spearman, or other non-binomial diagnostics."
+            ),
+        },
+        "claim_boundary": (
+            "IAA metrics are descriptive agreement diagnostics over completed local annotations. "
+            "They do not by themselves prove human validation unless fail-closed semantic thresholds also pass."
+        ),
+    }
+
+
 def _analysis_markdown(report: dict[str, Any]) -> str:
     overall = report["overall"]
+    iaa = report["inter_annotator_agreement"]
     lines = [
         "# Human Neutral-Control Annotation Analysis",
         "",
@@ -685,11 +806,33 @@ def _analysis_markdown(report: dict[str, Any]) -> str:
         f"- neutral_desired_label_absent_rate: `{_fmt(overall['neutral_desired_label_absent_rate'])}`",
         f"- attack_pressure_present_rate: `{_fmt(overall['attack_pressure_present_rate'])}`",
         "",
+        "## Inter-annotator Agreement",
+        "",
+        f"- annotators: `{', '.join(iaa['annotators']) or 'none'}`",
+        f"- IAA-eligible items: `{iaa['n_items_with_iaa_votes']}`",
+        (
+            "- CI method: `wilson_score_95_binomial` for binomial agreement rates; "
+            "`linear_transform_of_wilson_score_95_binomial` for PABAK; no simplified CI for kappa or Spearman."
+        ),
+    ]
+    for metric, summary in iaa["summary_by_metric"].items():
+        lines.append(
+            f"- {metric}: n_pairs=`{summary['n_pairs']}`, "
+            f"agreement=`{_fmt(summary['mean_percent_agreement'])}`, "
+            f"kappa=`{_fmt(summary['mean_cohen_kappa'])}`, "
+            f"pabak=`{_fmt(summary['mean_pabak'])}`, "
+            f"spearman=`{_fmt(summary['mean_spearman'])}`, "
+            f"within_1=`{_fmt(summary['mean_within_1_agreement'])}`"
+        )
+    lines.extend(
+        [
+            "",
         "## Thresholds",
         "",
         f"- failure_reasons: `{', '.join(report['thresholds']['failure_reasons']) or 'none'}`",
         "",
-    ]
+        ]
+    )
     return "\n".join(lines)
 
 
@@ -732,7 +875,36 @@ def _cell_fields() -> tuple[str, ...]:
     )
 
 
+def _iaa_pairwise_fields() -> tuple[str, ...]:
+    return (
+        "metric",
+        "annotator_a",
+        "annotator_b",
+        "n_items",
+        "n_exact_agreements",
+        "percent_agreement",
+        "percent_agreement_ci_low",
+        "percent_agreement_ci_high",
+        "percent_agreement_ci_method",
+        "cohen_kappa",
+        "pabak",
+        "pabak_ci_low",
+        "pabak_ci_high",
+        "pabak_ci_method",
+        "spearman",
+        "n_within_1_agreements",
+        "within_1_agreement",
+        "within_1_agreement_ci_low",
+        "within_1_agreement_ci_high",
+        "within_1_agreement_ci_method",
+    )
+
+
 def _is_usable(row: dict[str, Any]) -> bool:
+    return _is_iaa_usable(row) and _has_usable_label(row)
+
+
+def _is_iaa_usable(row: dict[str, Any]) -> bool:
     annotation = row["annotation"]
     if _parse_bool(annotation.get("unannotatable")):
         return False
@@ -740,6 +912,13 @@ def _is_usable(row: dict[str, Any]) -> bool:
         return False
     if not str(annotation.get("annotator_id") or "").strip():
         return False
+    if not str(annotation.get("annotation_item_id") or "").strip():
+        return False
+    return True
+
+
+def _has_usable_label(row: dict[str, Any]) -> bool:
+    annotation = row["annotation"]
     return _normalized_label(annotation.get("label_choice")) in {"safe", "unsafe"}
 
 
@@ -855,6 +1034,25 @@ def _normalized_label(value: Any) -> str | None:
     return LABEL_ALIASES.get(str(value).strip().lower())
 
 
+def _pressure_cue_exact(value: Any) -> str | None:
+    text = str(value or "").strip().lower()
+    return text if text in {"none", "weak", "strong"} else None
+
+
+def _pressure_cue_binary_label(value: Any) -> str | None:
+    present = _pressure_present(value)
+    if present is None:
+        return None
+    return "present" if present else "absent"
+
+
+def _desired_label_cue_label(value: Any) -> str | None:
+    present = _desired_present(value)
+    if present is None:
+        return None
+    return "present" if present else "absent"
+
+
 def _pressure_present(value: Any) -> bool | None:
     text = str(value or "").strip().lower()
     if text in PRESSURE_PRESENT:
@@ -902,6 +1100,156 @@ def _agreement(values: list[str | None]) -> float | None:
     if not usable:
         return None
     return Counter(usable).most_common(1)[0][1] / len(usable)
+
+
+def _annotator_pairs(annotators: list[str]) -> list[tuple[str, str]]:
+    pairs: list[tuple[str, str]] = []
+    for index, left in enumerate(annotators):
+        for right in annotators[index + 1 :]:
+            pairs.append((left, right))
+    return pairs
+
+
+def _paired_annotation_values(
+    by_item: dict[str, list[dict[str, Any]]],
+    left: str,
+    right: str,
+    parser: Any,
+) -> list[tuple[Any, Any]]:
+    values: list[tuple[Any, Any]] = []
+    for rows in by_item.values():
+        by_annotator = {str(row["annotation"].get("annotator_id") or "").strip(): row["annotation"] for row in rows}
+        if left not in by_annotator or right not in by_annotator:
+            continue
+        left_value = parser(_annotation_value(by_annotator[left], parser))
+        right_value = parser(_annotation_value(by_annotator[right], parser))
+        if left_value is None or right_value is None:
+            continue
+        values.append((left_value, right_value))
+    return values
+
+
+def _annotation_value(annotation: dict[str, Any], parser: Any) -> Any:
+    if parser is _normalized_label:
+        return annotation.get("label_choice")
+    if parser in {_pressure_cue_exact, _pressure_cue_binary_label}:
+        return annotation.get("pressure_cue")
+    if parser is _desired_label_cue_label:
+        return annotation.get("desired_label_cue")
+    return annotation.get("difficulty_1_5")
+
+
+def _percent_agreement(values: list[tuple[Any, Any]]) -> float | None:
+    if not values:
+        return None
+    return sum(1 for left, right in values if left == right) / len(values)
+
+
+def _exact_agreement_count(values: list[tuple[Any, Any]]) -> int:
+    return sum(1 for left, right in values if left == right)
+
+
+def _cohen_kappa(values: list[tuple[Any, Any]]) -> float | None:
+    if not values:
+        return None
+    observed = _percent_agreement(values)
+    labels = sorted({left for left, _ in values} | {right for _, right in values})
+    left_counts = Counter(left for left, _ in values)
+    right_counts = Counter(right for _, right in values)
+    total = len(values)
+    expected = sum((left_counts[label] / total) * (right_counts[label] / total) for label in labels)
+    if observed is None:
+        return None
+    denominator = 1.0 - expected
+    if abs(denominator) < 1e-12:
+        return 1.0 if abs(observed - 1.0) < 1e-12 else 0.0
+    return (observed - expected) / denominator
+
+
+def _pabak(values: list[tuple[Any, Any]]) -> float | None:
+    agreement = _percent_agreement(values)
+    return None if agreement is None else 2.0 * agreement - 1.0
+
+
+def _within_one_agreement(values: list[tuple[Any, Any]]) -> float | None:
+    if not values:
+        return None
+    return _within_one_agreement_count(values) / len(values)
+
+
+def _within_one_agreement_count(values: list[tuple[Any, Any]]) -> int:
+    return sum(1 for left, right in values if abs(float(left) - float(right)) <= 1.0)
+
+
+def _wilson_score_interval(successes: int, total: int) -> tuple[float | None, float | None]:
+    if total <= 0:
+        return None, None
+    z = IAA_WILSON_Z_95
+    phat = successes / total
+    denominator = 1.0 + z * z / total
+    center = (phat + z * z / (2.0 * total)) / denominator
+    margin = z * math.sqrt((phat * (1.0 - phat) + z * z / (4.0 * total)) / total) / denominator
+    return max(0.0, center - margin), min(1.0, center + margin)
+
+
+def _pabak_ci_from_agreement_ci(low: float | None, high: float | None) -> tuple[float | None, float | None]:
+    if low is None or high is None:
+        return None, None
+    return 2.0 * low - 1.0, 2.0 * high - 1.0
+
+
+def _spearman(values: list[tuple[Any, Any]]) -> float | None:
+    if len(values) < 2:
+        return None
+    left_ranks = _ranks([float(left) for left, _ in values])
+    right_ranks = _ranks([float(right) for _, right in values])
+    return _pearson(left_ranks, right_ranks)
+
+
+def _ranks(values: list[float]) -> list[float]:
+    ordered = sorted(enumerate(values), key=lambda item: item[1])
+    ranks = [0.0] * len(values)
+    index = 0
+    while index < len(ordered):
+        end = index + 1
+        while end < len(ordered) and ordered[end][1] == ordered[index][1]:
+            end += 1
+        rank = (index + 1 + end) / 2.0
+        for original_index, _ in ordered[index:end]:
+            ranks[original_index] = rank
+        index = end
+    return ranks
+
+
+def _pearson(left: list[float], right: list[float]) -> float | None:
+    if len(left) != len(right) or len(left) < 2:
+        return None
+    left_mean = sum(left) / len(left)
+    right_mean = sum(right) / len(right)
+    numerator = sum((a - left_mean) * (b - right_mean) for a, b in zip(left, right))
+    left_var = sum((a - left_mean) ** 2 for a in left)
+    right_var = sum((b - right_mean) ** 2 for b in right)
+    denominator = math.sqrt(left_var * right_var)
+    return None if denominator == 0.0 else numerator / denominator
+
+
+def _iaa_summary_by_metric(rows: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for row in rows:
+        grouped[str(row["metric"])].append(row)
+    return {
+        metric: {
+            "n_pairs": len(metric_rows),
+            "mean_percent_agreement": _mean(row["percent_agreement"] for row in metric_rows if row["percent_agreement"] is not None),
+            "mean_cohen_kappa": _mean(row["cohen_kappa"] for row in metric_rows if row["cohen_kappa"] is not None),
+            "mean_pabak": _mean(row["pabak"] for row in metric_rows if row["pabak"] is not None),
+            "mean_spearman": _mean(row["spearman"] for row in metric_rows if row["spearman"] is not None),
+            "mean_within_1_agreement": _mean(
+                row["within_1_agreement"] for row in metric_rows if row["within_1_agreement"] is not None
+            ),
+        }
+        for metric, metric_rows in sorted(grouped.items())
+    }
 
 
 def _bool_value(row: dict[str, Any] | None, field: str) -> bool | None:

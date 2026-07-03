@@ -91,7 +91,7 @@ def save(fig: plt.Figure, name: str) -> None:
     plt.close(fig)
 
 
-def draw_box(ax, xy, text, width=1.65, height=0.58, face="#f7f7f7", edge="#333333"):
+def draw_box(ax, xy, text, width=1.65, height=0.58, face="#f7f7f7", edge="#333333", fontsize=7.0):
     x, y = xy
     patch = FancyBboxPatch(
         (x, y),
@@ -103,7 +103,7 @@ def draw_box(ax, xy, text, width=1.65, height=0.58, face="#f7f7f7", edge="#33333
         facecolor=face,
     )
     ax.add_patch(patch)
-    ax.text(x + width / 2, y + height / 2, text, ha="center", va="center", fontsize=8)
+    ax.text(x + width / 2, y + height / 2, text, ha="center", va="center", fontsize=fontsize)
     return patch
 
 
@@ -113,34 +113,49 @@ def arrow(ax, start, end):
 
 def fig1_pipeline() -> None:
     fig, ax = plt.subplots(figsize=(7.8, 3.55))
-    ax.set_xlim(0, 8.4)
-    ax.set_ylim(0, 3.85)
+    ax.set_xlim(0, 9.05)
+    ax.set_ylim(0, 4.05)
     ax.axis("off")
 
-    ax.text(0.18, 3.55, "MN-SLA matched-neutral safety-label audit", fontsize=10, weight="bold", ha="left")
+    ax.text(0.16, 3.78, "MN-SLA reference-shift audit", fontsize=10, weight="bold", ha="left")
 
-    draw_box(ax, (0.15, 2.28), "Base case\n$C_b$, $y_b$", width=1.15, height=0.68, face="#eaf1fb", edge="#4c78a8")
-    draw_box(ax, (1.60, 2.72), "Pressure wrapper\ncue present", width=1.30, height=0.54, face="#fdeceb", edge="#d65f5f")
-    draw_box(ax, (1.60, 1.76), "Neutral wrapper\ncue removed", width=1.30, height=0.54, face="#edf6ed", edge="#59a14f")
-    draw_box(ax, (3.10, 2.28), "Same safety\njudge $f$", width=1.15, height=0.68, face="#fff6df", edge="#c9942e")
-    draw_box(ax, (4.50, 2.50), "Base-level\nraw gap\n$\\Delta_b^{raw}$", width=1.05, height=0.72, face="#f7f7f7")
-    draw_box(ax, (4.34, 1.38), "Matched-control\nprojection\n$T_{\\mathrm{mean}}$", width=1.36, height=0.78, face="#edf6ed", edge="#59a14f")
-    draw_box(ax, (6.06, 1.42), "Residual +\nattenuation\n$\\Delta_b^T, A_b^T$", width=1.15, height=0.78, face="#f7f7f7")
-    draw_box(ax, (7.36, 1.95), "Fail-closed\nclaim gate", width=0.90, height=0.86, face="#f1ecf8", edge="#8b6bb1")
+    draw_box(ax, (0.12, 2.47), "Base case\n$C_b$, $y_b$", width=1.12, height=0.68, face="#eaf1fb", edge="#4c78a8")
+    draw_box(ax, (1.52, 3.13), "Pressure wrapper\ncue present", width=1.34, height=0.56, face="#fdeceb", edge="#d65f5f")
+    draw_box(ax, (1.52, 2.18), "Matched neutral\ncue removed", width=1.34, height=0.56, face="#edf6ed", edge="#59a14f")
+    draw_box(ax, (1.52, 1.23), "Naive reference\nfamily", width=1.34, height=0.56, face="#f7f7f7", edge="#888888")
+    draw_box(ax, (3.18, 2.16), "Same safety\njudge $f$", width=1.10, height=0.72, face="#fff6df", edge="#c9942e")
 
-    arrow(ax, (1.30, 2.61), (1.57, 2.97))
-    arrow(ax, (1.30, 2.53), (1.57, 2.03))
-    arrow(ax, (2.80, 2.96), (3.07, 2.69))
-    arrow(ax, (2.80, 2.03), (3.07, 2.43))
-    arrow(ax, (4.26, 2.70), (4.47, 2.86))
-    arrow(ax, (4.26, 2.36), (4.38, 1.78))
-    arrow(ax, (5.72, 1.77), (6.03, 1.81))
-    arrow(ax, (5.57, 2.86), (7.33, 2.48))
-    arrow(ax, (7.16, 1.81), (7.33, 2.25))
+    draw_box(ax, (4.56, 3.09), "Pressure error\n$P_b$", width=1.28, height=0.60, face="#fdeceb", edge="#d65f5f")
+    draw_box(ax, (4.56, 2.14), "Matched-neutral\nerror $M_b$", width=1.28, height=0.60, face="#edf6ed", edge="#59a14f")
+    draw_box(ax, (4.56, 1.19), "Naive-reference\nerror $R_b$", width=1.28, height=0.60, face="#f7f7f7", edge="#888888")
 
-    ax.text(0.35, 0.72, "Same safety case and gold label;\nneutral wrappers preserve layout/format.", fontsize=6.2, ha="left", linespacing=1.15)
-    ax.text(5.15, 0.48, "Gate checks:\ncoverage + pairing\nbase-level inference\nresidual + attenuation + F1",
-            fontsize=5.8, ha="left", va="bottom", linespacing=1.12)
+    draw_box(ax, (6.28, 2.88), "Target\n$d_b^{MN}=P_b-M_b$", width=1.65, height=0.64, face="#edf6ed", edge="#59a14f")
+    draw_box(ax, (6.28, 1.93), "Naive reference\n$d_b^R=P_b-R_b$", width=1.65, height=0.64, face="#f7f7f7", edge="#888888")
+    draw_box(ax, (6.28, 0.98), "Reference-shift\nbias\n$M_b-R_b$", width=1.65, height=0.74, face="#fff6df", edge="#c9942e")
+    draw_box(ax, (8.12, 1.84), "Base-level\nclaim gate", width=0.86, height=0.86, face="#f1ecf8", edge="#8b6bb1")
+
+    arrow(ax, (1.24, 2.90), (1.49, 3.42))
+    arrow(ax, (1.24, 2.79), (1.49, 2.46))
+    arrow(ax, (1.24, 2.58), (1.49, 1.51))
+    arrow(ax, (2.86, 3.40), (3.15, 2.70))
+    arrow(ax, (2.86, 2.46), (3.15, 2.52))
+    arrow(ax, (2.86, 1.51), (3.15, 2.30))
+    arrow(ax, (4.30, 2.70), (4.61, 3.38))
+    arrow(ax, (4.30, 2.52), (4.61, 2.44))
+    arrow(ax, (4.30, 2.30), (4.61, 1.49))
+    arrow(ax, (5.76, 3.39), (6.15, 3.25))
+    arrow(ax, (5.76, 2.44), (6.15, 3.15))
+    arrow(ax, (5.76, 3.24), (6.15, 2.25))
+    arrow(ax, (5.76, 1.49), (6.15, 2.12))
+    arrow(ax, (5.76, 2.25), (6.15, 1.35))
+    arrow(ax, (5.76, 1.49), (6.15, 1.35))
+    arrow(ax, (7.68, 3.20), (7.89, 2.36))
+    arrow(ax, (7.68, 2.25), (7.89, 2.24))
+    arrow(ax, (7.68, 1.35), (7.89, 2.09))
+
+    ax.text(0.24, 0.62, "Same-base target removes the pressure cue while preserving the safety case,\nlayout, output format, and gold label.", fontsize=6.1, ha="left", linespacing=1.15)
+    ax.text(4.56, 0.42, "Identity: $d_b^R=d_b^{MN}+(M_b-R_b)$.\nNaive audits change the estimand when the reference-shift term is nonzero.",
+            fontsize=6.0, ha="left", va="bottom", linespacing=1.12)
     save(fig, "fig1_pipeline")
 
 
@@ -335,7 +350,7 @@ def write_tables() -> None:
     include = r"""\begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{figures/fig1_pipeline.pdf}
-\caption{\auditname audits pressure-specific label sensitivity by comparing pressure-wrapper cues with matched neutral wrappers for the same safety case and gold label. Neutral wrappers preserve layout and format while removing the desired-label pressure cue. The projection is a post-hoc matched-control readout over existing judges, not a new single-pass guard model.}
+\caption{\auditname fixes each base case and separates the matched-neutral target $d_b^{MN}=P_b-M_b$ from a naive-reference gap $d_b^R=P_b-R_b$. The reference-shift term $M_b-R_b$ is explicit; inference remains over base cases, not rendered rows.}
 \label{fig:pipeline}
 \end{figure}
 
